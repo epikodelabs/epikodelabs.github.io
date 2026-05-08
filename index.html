@@ -76,8 +76,14 @@
       transition: background 0.25s, color 0.25s;
     }
     /* Prevent Paddle overlay from creating nested scrollbars */
+    html.paddle-checkout-open,
     body.paddle-checkout-open {
       overflow: hidden !important;
+      height: 100% !important;
+    }
+
+    body.paddle-checkout-open {
+      padding-right: var(--scrollbar-width, 0px);
     }
 
     /* grid bg */
@@ -429,7 +435,7 @@
   }
 
   /* Light theme Paddle overrides */
-  [data-theme="dark"] .paddle-checkout-frame,
+  [data-theme="light"] .paddle-checkout-frame,
   [data-theme="light"] .paddle-checkout-container {
     background: #ffffff !important;
     color: #1a1a2e !important;
@@ -440,9 +446,6 @@
     overflow: hidden !important;
   }
 
-  .paddle-checkout-overlay iframe {
-    overflow: hidden !important;
-  }
 
   /* Smooth backdrop blur for overlay */
   .paddle-checkout-overlay::before {
@@ -481,6 +484,57 @@
     background: var(--border);
     border-radius: 3px;
   }
+
+
+  /* ── PADDLE OVERLAY: PAGE-MATCHED MODAL SHELL ── */
+  .paddle-checkout-overlay,
+  [class*="paddle-checkout-overlay"],
+  [class*="PaddleCheckoutOverlay"] {
+    overflow: hidden !important;
+    isolation: isolate;
+  }
+
+  .paddle-checkout-overlay,
+  .paddle-checkout-container,
+  [class*="paddle-checkout-container"] {
+    font-family: 'Geist Mono', monospace !important;
+  }
+
+  .paddle-checkout-frame,
+  .paddle-checkout-container iframe,
+  [class*="paddle-checkout"] iframe {
+    border: 1px solid var(--border-hover) !important;
+    border-radius: 20px !important;
+    background: var(--surface) !important;
+    box-shadow:
+      0 24px 80px rgba(0,0,0,0.42),
+      0 0 0 1px rgba(255,255,255,0.03),
+      0 0 80px var(--card-glow-b) !important;
+  }
+
+  [data-theme="dark"] .paddle-checkout-frame,
+  [data-theme="dark"] .paddle-checkout-container iframe,
+  [data-theme="dark"] [class*="paddle-checkout"] iframe {
+    background: #13131a !important;
+  }
+
+  [data-theme="light"] .paddle-checkout-frame,
+  [data-theme="light"] .paddle-checkout-container iframe,
+  [data-theme="light"] [class*="paddle-checkout"] iframe {
+    background: #ffffff !important;
+    box-shadow:
+      0 24px 80px rgba(30,30,55,0.18),
+      0 0 0 1px rgba(79,70,229,0.08),
+      0 0 80px var(--card-glow-b) !important;
+  }
+
+  /* Do not let the page behind Paddle move on touch devices */
+  html.paddle-checkout-open,
+  body.paddle-checkout-open {
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+
 </style>
 <base target="_blank">
 </head>
@@ -1372,20 +1426,23 @@
             // Prevent body scroll lock conflicts
             allowLogout: true,
             // Style overrides to match page theme
-            frameStyle: 'width: 100%; max-width: 480px; border-radius: 16px;'
+            frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px; border-radius: 20px; border: 1px solid rgba(129,140,248,0.28); box-shadow: 0 24px 80px rgba(0,0,0,0.42);'
           }
         },
         eventCallback: function(event) {
           if (event && event.name === 'checkout.completed') {
             console.log('Purchase successful:', event);
-            document.body.classList.remove('paddle-checkout-open');
+            unlockScroll();
             showSuccessMessage(
               event.data?.customData?.product || 'product',
               event.data?.customData?.licenseType || 'license'
             );
           }
           if (event && event.name === 'checkout.closed') {
-            document.body.classList.remove('paddle-checkout-open');
+            unlockScroll();
+          }
+          if (event && (event.name === 'checkout.error' || event.name === 'checkout.failed')) {
+            unlockScroll();
           }
         }
       });
@@ -1424,7 +1481,7 @@
     }
 
     // Lock body scroll to prevent double scrollbar
-    document.body.classList.add('paddle-checkout-open');
+    lockScroll();
 
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
@@ -1440,9 +1497,28 @@
         variant: 'one-page',
         theme: isLight ? 'light' : 'dark',
         locale: 'en',
-        frameStyle: 'width: 100%; max-width: 480px; border-radius: 16px;'
+        frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px; border-radius: 20px; border: 1px solid rgba(129,140,248,0.28); box-shadow: 0 24px 80px rgba(0,0,0,0.42);'
       }
     });
+  }
+
+
+  let savedScrollY = 0;
+
+  function lockScroll() {
+    savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    const scrollbarWidth = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+
+    document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    document.documentElement.classList.add('paddle-checkout-open');
+    document.body.classList.add('paddle-checkout-open');
+  }
+
+  function unlockScroll() {
+    document.documentElement.classList.remove('paddle-checkout-open');
+    document.body.classList.remove('paddle-checkout-open');
+    document.documentElement.style.removeProperty('--scrollbar-width');
+    window.scrollTo(0, savedScrollY);
   }
 
   function showSuccessMessage(productName, licenseType) {
