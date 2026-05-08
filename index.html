@@ -420,56 +420,121 @@
       header { padding: 1rem; }
     }
   
-  /* ── PADDLE CHECKOUT THEME OVERRIDES ── */
-  /* Force Paddle iframe to inherit page theme colors */
-  .paddle-checkout-frame {
-    border-radius: 16px !important;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.4) !important;
-  }
+  /* ══════════════════════════════════════════════════════════════
+     PADDLE CHECKOUT — ADVANCED THEME OVERRIDES
+     Matches the page design system: dark/light themes, Geist font,
+     grid background, blob glows, card-style borders, smooth animations.
+     ══════════════════════════════════════════════════════════════ */
 
-  /* Dark theme Paddle overrides */
-  [data-theme="dark"] .paddle-checkout-frame,
-  [data-theme="dark"] .paddle-checkout-container {
-    background: #13131a !important;
-    color: #e2e2f0 !important;
-  }
-
-  /* Light theme Paddle overrides */
-  [data-theme="light"] .paddle-checkout-frame,
-  [data-theme="light"] .paddle-checkout-container {
-    background: #ffffff !important;
-    color: #1a1a2e !important;
-  }
-
-  /* Prevent double scrollbar on Paddle overlay */
-  .paddle-checkout-overlay {
+  /* ── Overlay backdrop: animated gradient + blur ── */
+  .paddle-checkout-overlay,
+  [class*="paddle-checkout-overlay"],
+  [class*="PaddleCheckoutOverlay"] {
     overflow: hidden !important;
+    isolation: isolate;
   }
 
-
-  /* Smooth backdrop blur for overlay */
   .paddle-checkout-overlay::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(12, 12, 15, 0.6);
-    backdrop-filter: blur(8px);
     z-index: 9998;
+    background:
+      radial-gradient(ellipse at 20% 50%, var(--blob-a) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, var(--blob-b) 0%, transparent 60%),
+      color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px) saturate(1.1);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    opacity: 0;
+    animation: paddleFadeIn 0.35s ease forwards;
   }
 
-  [data-theme="light"] .paddle-checkout-overlay::before {
-    background: rgba(248, 248, 252, 0.7);
+  @keyframes paddleFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
-  /* Ensure Paddle modal sits above backdrop */
-  .paddle-checkout-frame {
+  /* ── Checkout container: font + smooth entrance ── */
+  .paddle-checkout-overlay,
+  .paddle-checkout-container,
+  [class*="paddle-checkout-container"] {
+    font-family: 'Geist Mono', monospace !important;
+  }
+
+  /* ── Checkout iframe: card-like shell with gradient border + glow ── */
+  .paddle-checkout-frame,
+  .paddle-checkout-container iframe,
+  [class*="paddle-checkout"] iframe {
+    border-radius: 24px !important;
+    background: var(--surface) !important;
     position: relative;
     z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    animation: paddleSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s,
+      background 0.3s;
   }
 
-  /* Hide any potential duplicate scrollbars in Paddle UI */
+  @keyframes paddleSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* ── Dark theme iframe shell ── */
+  [data-theme="dark"] .paddle-checkout-frame,
+  [data-theme="dark"] .paddle-checkout-container iframe,
+  [data-theme="dark"] [class*="paddle-checkout"] iframe {
+    background: #13131a !important;
+    border: 1px solid rgba(129, 140, 248, 0.25) !important;
+    box-shadow:
+      0 0 0 1px rgba(94, 234, 212, 0.06),
+      0 0 60px rgba(94, 234, 212, 0.06),
+      0 0 120px rgba(129, 140, 248, 0.04),
+      0 24px 80px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+  }
+
+  /* ── Light theme iframe shell ── */
+  [data-theme="light"] .paddle-checkout-frame,
+  [data-theme="light"] .paddle-checkout-container iframe,
+  [data-theme="light"] [class*="paddle-checkout"] iframe {
+    background: #ffffff !important;
+    border: 1px solid rgba(79, 70, 229, 0.15) !important;
+    box-shadow:
+      0 0 0 1px rgba(79, 70, 229, 0.04),
+      0 0 40px rgba(79, 70, 229, 0.04),
+      0 24px 80px rgba(30, 30, 55, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* ── Subtle grid overlay on the iframe itself (matches page bg) ── */
+  .paddle-checkout-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.5;
+  }
+
+  /* ── Scrollbar styling inside checkout ── */
   .paddle-checkout-frame * {
     scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
   }
 
   .paddle-checkout-frame *::-webkit-scrollbar {
@@ -485,54 +550,45 @@
     border-radius: 3px;
   }
 
-
-  /* ── PADDLE OVERLAY: PAGE-MATCHED MODAL SHELL ── */
-  .paddle-checkout-overlay,
-  [class*="paddle-checkout-overlay"],
-  [class*="PaddleCheckoutOverlay"] {
-    overflow: hidden !important;
-    isolation: isolate;
+  .paddle-checkout-frame *::-webkit-scrollbar-thumb:hover {
+    background: var(--border-hover);
   }
 
-  .paddle-checkout-overlay,
-  .paddle-checkout-container,
-  [class*="paddle-checkout-container"] {
-    font-family: 'Geist Mono', monospace !important;
-  }
-
-  .paddle-checkout-frame,
-  .paddle-checkout-container iframe,
-  [class*="paddle-checkout"] iframe {
-    border: 1px solid var(--border-hover) !important;
-    border-radius: 20px !important;
-    background: var(--surface) !important;
-    box-shadow:
-      0 24px 80px rgba(0,0,0,0.42),
-      0 0 0 1px rgba(255,255,255,0.03),
-      0 0 80px var(--card-glow-b) !important;
-  }
-
-  [data-theme="dark"] .paddle-checkout-frame,
-  [data-theme="dark"] .paddle-checkout-container iframe,
-  [data-theme="dark"] [class*="paddle-checkout"] iframe {
-    background: #13131a !important;
-  }
-
-  [data-theme="light"] .paddle-checkout-frame,
-  [data-theme="light"] .paddle-checkout-container iframe,
-  [data-theme="light"] [class*="paddle-checkout"] iframe {
-    background: #ffffff !important;
-    box-shadow:
-      0 24px 80px rgba(30,30,55,0.18),
-      0 0 0 1px rgba(79,70,229,0.08),
-      0 0 80px var(--card-glow-b) !important;
-  }
-
-  /* Do not let the page behind Paddle move on touch devices */
+  /* ── Body / html lock when checkout is open ── */
   html.paddle-checkout-open,
   body.paddle-checkout-open {
+    overflow: hidden !important;
+    height: 100% !important;
     overscroll-behavior: none;
     touch-action: none;
+  }
+
+  body.paddle-checkout-open {
+    padding-right: var(--scrollbar-width, 0px);
+  }
+
+  /* ── Close button area: subtle hover effect ── */
+  .paddle-checkout-overlay [class*="close"],
+  .paddle-checkout-overlay [class*="Close"] {
+    transition: opacity 0.2s, transform 0.2s !important;
+  }
+
+  .paddle-checkout-overlay [class*="close"]:hover,
+  .paddle-checkout-overlay [class*="Close"]:hover {
+    opacity: 0.7 !important;
+    transform: scale(1.05) !important;
+  }
+
+  /* ── Responsive: tighter radius on small screens ── */
+  @media (max-width: 520px) {
+    .paddle-checkout-frame,
+    .paddle-checkout-container iframe,
+    [class*="paddle-checkout"] iframe {
+      border-radius: 16px !important;
+    }
+    .paddle-checkout-frame::after {
+      border-radius: 16px;
+    }
   }
 
 </style>
@@ -1425,8 +1481,9 @@
             locale: 'en',
             // Prevent body scroll lock conflicts
             allowLogout: true,
-            // Style overrides to match page theme
-            frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px; border-radius: 20px; border: 1px solid rgba(129,140,248,0.28); box-shadow: 0 24px 80px rgba(0,0,0,0.42);'
+            // Sizing only — visual styling is handled by CSS overrides
+            frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px;'
+
           }
         },
         eventCallback: function(event) {
@@ -1497,7 +1554,9 @@
         variant: 'one-page',
         theme: isLight ? 'light' : 'dark',
         locale: 'en',
-        frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px; border-radius: 20px; border: 1px solid rgba(129,140,248,0.28); box-shadow: 0 24px 80px rgba(0,0,0,0.42);'
+        // Sizing only — visual styling is handled by CSS overrides
+        frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px;'
+
       }
     });
   }
