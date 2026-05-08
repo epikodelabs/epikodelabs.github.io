@@ -220,7 +220,7 @@
     .projects {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 1rem 2rem 3rem;
+      padding: 1rem 2rem 2.5rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.8rem;
@@ -338,6 +338,34 @@
       font-size: 0.75rem;
     }
 
+    /* FAQ card with extra bottom margin */
+    .faq-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.5rem 1.6rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+      transition: all 0.2s;
+    }
+    .faq-card h3 {
+      font-family: 'Geist', sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .faq-card p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+    .faq-card p:last-of-type {
+      margin-bottom: 0;
+    }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 2rem;
@@ -395,7 +423,7 @@
 <section class="hero">
   <span class="eyebrow">open-source · typescript · reactive · licenses</span>
   <h1><em>reactive apps</em><br />that scale, now<br />with enterprise options</h1>
-  <p>Streamix + Actionstack: pull-based streams, modular state management. Open-source (AGPL) or choose a commercial one-time license.</p>
+  <p><b>streamix</b> + <b>actionstack</b>: pull-based streams, modular state management. Open-source (AGPL) or choose a commercial one-time license.</p>
   <div class="hero-links">
     <a class="btn" href="#pricing">↓ view licensing & pricing</a>
     <a class="btn" href="https://github.com/epikodelabs" target="_blank">↗ GitHub org</a>
@@ -470,12 +498,14 @@
       </ul>
       <p>Contact <span class="contact-email">oleksii.shepel@outlook.com</span> with invoice number.</p>
     </div>
-    <div class="legal-card">
-      <h3><i>⚙️</i> Commercial License FAQ</h3>
-      <p><strong>Are these prices too small?</strong> We intentionally keep one-time licenses affordable for indie developers and small teams — $25/$30 for streamix and $10 for actionstack is competitive for perpetual rights. It helps sustain open-source development while keeping it accessible. For enterprises with custom needs, contact us for customized agreements.</p>
-      <p><strong>What do I get?</strong> A license certificate, perpetual use rights for the major version, and removal of AGPL constraints in your proprietary codebase.</p>
-      <p><strong>Payment methods:</strong> PayPal / wire / invoice via email.</p>
-    </div>
+  </div>
+
+  <!-- Commercial License FAQ - with extra bottom margin -->
+  <div class="faq-card">
+    <h3><i>⚙️</i> Commercial License FAQ</h3>
+    <p><strong>Are these prices too small?</strong> We intentionally keep one-time licenses affordable for indie developers and small teams — $25/$30 for streamix and $10 for actionstack is competitive for perpetual rights. It helps sustain open-source development while keeping it accessible. For enterprises with custom needs, contact us for customized agreements.</p>
+    <p><strong>What do I get?</strong> A license certificate, perpetual use rights for the major version, and removal of AGPL constraints in your proprietary codebase.</p>
+    <p><strong>Payment methods:</strong> PayPal / wire / invoice via email.</p>
   </div>
 
   <!-- Additional compliance block (refund / terms details merged) -->
