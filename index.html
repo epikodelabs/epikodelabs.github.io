@@ -72,7 +72,12 @@
       font-family: 'Geist Mono', monospace;
       min-height: 100vh;
       overflow-x: hidden;
+      overflow-y: auto;
       transition: background 0.25s, color 0.25s;
+    }
+    /* Prevent Paddle overlay from creating nested scrollbars */
+    body.paddle-checkout-open {
+      overflow: hidden !important;
     }
 
     /* grid bg */
@@ -408,7 +413,76 @@
       .projects { padding: 1rem 1.2rem; }
       header { padding: 1rem; }
     }
-  </style>
+  
+  /* ── PADDLE CHECKOUT THEME OVERRIDES ── */
+  /* Force Paddle iframe to inherit page theme colors */
+  .paddle-checkout-frame {
+    border-radius: 16px !important;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4) !important;
+  }
+
+  /* Dark theme Paddle overrides */
+  [data-theme="dark"] .paddle-checkout-frame,
+  [data-theme="dark"] .paddle-checkout-container {
+    background: #13131a !important;
+    color: #e2e2f0 !important;
+  }
+
+  /* Light theme Paddle overrides */
+  [data-theme="dark"] .paddle-checkout-frame,
+  [data-theme="light"] .paddle-checkout-container {
+    background: #ffffff !important;
+    color: #1a1a2e !important;
+  }
+
+  /* Prevent double scrollbar on Paddle overlay */
+  .paddle-checkout-overlay {
+    overflow: hidden !important;
+  }
+
+  .paddle-checkout-overlay iframe {
+    overflow: hidden !important;
+  }
+
+  /* Smooth backdrop blur for overlay */
+  .paddle-checkout-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 12, 15, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
+  }
+
+  [data-theme="light"] .paddle-checkout-overlay::before {
+    background: rgba(248, 248, 252, 0.7);
+  }
+
+  /* Ensure Paddle modal sits above backdrop */
+  .paddle-checkout-frame {
+    position: relative;
+    z-index: 9999;
+  }
+
+  /* Hide any potential duplicate scrollbars in Paddle UI */
+  .paddle-checkout-frame * {
+    scrollbar-width: thin;
+  }
+
+  .paddle-checkout-frame *::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .paddle-checkout-frame *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .paddle-checkout-frame *::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+</style>
+<base target="_blank">
 </head>
 <body>
 
@@ -574,11 +648,41 @@
       const mode = btn.dataset.mode;
       localStorage.setItem(KEY, mode);
       applyMode(mode);
+      // Sync Paddle checkout theme if active
+      if (window.Paddle && paddleReady) {
+        const isLight = mode === 'light' || (mode === 'auto' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
+        try {
+          Paddle.Update({
+            checkout: {
+              settings: {
+                theme: isLight ? 'light' : 'dark'
+              }
+            }
+          });
+        } catch(e) {
+          // Paddle may not support runtime theme updates
+        }
+      }
     });
   });
 
   mql.addEventListener('change', () => {
     if ((localStorage.getItem(KEY) || 'auto') === 'auto') applyMode('auto');
+    // Sync Paddle checkout theme if active
+    if (window.Paddle && paddleReady) {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      try {
+        Paddle.Update({
+          checkout: {
+            settings: {
+              theme: isLight ? 'light' : 'dark'
+            }
+          }
+        });
+      } catch(e) {
+        // Paddle may not support runtime theme updates
+      }
+    }
   });
 </script>
 
@@ -1254,6 +1358,8 @@
     }
 
     try {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
       // Production is the default for live_ tokens. Do not call Environment.set('production').
       Paddle.Initialize({
         token: PADDLE_CLIENT_TOKEN,
@@ -1261,13 +1367,25 @@
           settings: {
             displayMode: 'overlay',
             variant: 'one-page',
-            theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
-            locale: 'en'
+            theme: isLight ? 'light' : 'dark',
+            locale: 'en',
+            // Prevent body scroll lock conflicts
+            allowLogout: true,
+            // Style overrides to match page theme
+            frameStyle: 'width: 100%; max-width: 480px; border-radius: 16px;'
           }
         },
         eventCallback: function(event) {
           if (event && event.name === 'checkout.completed') {
             console.log('Purchase successful:', event);
+            document.body.classList.remove('paddle-checkout-open');
+            showSuccessMessage(
+              event.data?.customData?.product || 'product',
+              event.data?.customData?.licenseType || 'license'
+            );
+          }
+          if (event && event.name === 'checkout.closed') {
+            document.body.classList.remove('paddle-checkout-open');
           }
         }
       });
@@ -1305,18 +1423,24 @@
       return;
     }
 
+    // Lock body scroll to prevent double scrollbar
+    document.body.classList.add('paddle-checkout-open');
+
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
     Paddle.Checkout.open({
       items: [{ priceId: priceId, quantity: 1 }],
       customData: {
-        licenseType: licenseType, // 'individual', 'team', or 'universal'
-        product: productName,     // 'streamix' or 'actionstack'
+        licenseType: licenseType,
+        product: productName,
         legacyProductId: legacyProductId
       },
       settings: {
         displayMode: 'overlay',
         variant: 'one-page',
-        theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
-        locale: 'en'
+        theme: isLight ? 'light' : 'dark',
+        locale: 'en',
+        frameStyle: 'width: 100%; max-width: 480px; border-radius: 16px;'
       }
     });
   }
