@@ -210,6 +210,19 @@
       transition: all 0.2s;
     }
     .btn:hover { border-color: var(--border-hover); color: var(--text); }
+    .license-btn {
+      font-size: 0.7rem;
+      padding: 0.4rem 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .license-btn:hover {
+      background: var(--border);
+      border-color: var(--border-hover);
+    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
@@ -431,7 +444,7 @@
 </section>
 
 <div class="projects">
-  <a class="card streamix" href="https://epikodelabs.github.io/streamix">
+  <a class="card streamix" href="https://epikodelabs.github.io/streamix" target="_blank">
     <span class="card-tag tag-teal">library · reactive streams</span>
     <h2>streamix</h2>
     <p class="card-desc">Async generator-based streams — lightweight, pull-based, familiar RxJS-like operators. Zero-overhead backpressure, tiny footprint.</p>
@@ -441,8 +454,12 @@
       <span class="badge">AGPL-3.0</span>
     </div>
     <div class="price-badge">✨ commercial license: $25 (individual) / $30 (team) — one-time</div>
+    <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+      <button class="btn license-btn" onclick="purchaseLicense('pro_01kr3tr6a9zgb085wr2hev07e7', 'individual', 'streamix')">Buy Individual - $25</button>
+      <button class="btn license-btn" onclick="purchaseLicense('pro_01kr3tr6a9zgb085wr2hev07e7', 'team', 'streamix')">Buy Team - $30</button>
+    </div>
   </a>
-  <a class="card actionstack" href="https://epikodelabs.github.io/actionstack">
+  <a class="card actionstack" href="https://epikodelabs.github.io/actionstack" target="_blank">
     <span class="card-tag tag-indigo">library · state management</span>
     <h2>actionstack</h2>
     <p class="card-desc">Next-gen state management on streamix. Modular actions, no reducers, reactive and scalable for modern TypeScript apps.</p>
@@ -452,6 +469,9 @@
       <span class="badge">AGPL-3.0</span>
     </div>
     <div class="price-badge">🚀 commercial license: $10 (individual & team) — one-time</div>
+    <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+      <button class="btn license-btn" onclick="purchaseLicense('pro_01kr3tsfwt86qj89mxsgxkx23g', 'universal', 'actionstack')">Buy License - $10</button>
+    </div>
   </a>
 </div>
 
@@ -551,6 +571,40 @@
   mql.addEventListener('change', () => {
     if ((localStorage.getItem(KEY) || 'auto') === 'auto') applyMode('auto');
   });
+</script>
+
+<!-- Paddle JS Integration -->
+<script src="node_modules/@paddle/paddle-js/dist/index.js"></script>
+<script>
+  // Initialize Paddle (replace with your actual vendor ID)
+  Paddle.Initialize({
+    vendor: 333204, // Replace with your Paddle vendor ID
+    environment: 'production', // Use 'production' for live
+    token: 'live_6be30a33d0114551f4e7908a56c'
+  });
+
+  // Function to handle license purchases
+  function purchaseLicense(productId, licenseType, productName) {
+    Paddle.Checkout.open({
+      product: productId,
+      customData: {
+        licenseType: licenseType, // 'individual', 'team', or 'universal'
+        product: productName     // 'streamix' or 'actionstack'
+      },
+      successCallback: function(data) {
+        console.log('Purchase successful:', data);
+        showSuccessMessage(productName, licenseType);
+      },
+      closeCallback: function() {
+        console.log('Checkout closed');
+      }
+    });
+  }
+
+  function showSuccessMessage(productName, licenseType) {
+    const licenseDesc = licenseType === 'universal' ? '' : ` ${licenseType}`;
+    alert(`Thank you for purchasing the ${productName}${licenseDesc} license! Check your email for the license key.`);
+  }
 </script>
 </body>
 </html>
