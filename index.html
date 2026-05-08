@@ -465,7 +465,6 @@
   .paddle-checkout-frame,
   .paddle-checkout-container iframe,
   [class*="paddle-checkout"] iframe {
-    border-radius: 24px !important;
     background: var(--surface) !important;
     position: relative;
     z-index: 9999;
@@ -477,6 +476,7 @@
       box-shadow 0.3s,
       background 0.3s;
   }
+
 
   @keyframes paddleSlideUp {
     from {
@@ -581,15 +581,11 @@
 
   /* ── Responsive: tighter radius on small screens ── */
   @media (max-width: 520px) {
-    .paddle-checkout-frame,
-    .paddle-checkout-container iframe,
-    [class*="paddle-checkout"] iframe {
-      border-radius: 16px !important;
-    }
     .paddle-checkout-frame::after {
       border-radius: 16px;
     }
   }
+
 
 </style>
 <base target="_blank">
