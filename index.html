@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>epikodelabs — Dual License: Open Source (AGPL) or Commercial</title>
-  <meta name="description" content="Streamix & Actionstack. Open Source under AGPL-3.0. Purchase a commercial license to close your source code and access private repositories." />
+  <title>epikodelabs — reactive libraries & license pricing</title>
+  <meta name="description" content="Open-source libraries for reactive applications. Streamix, Actionstack, and commercial licenses for teams & individuals." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-  <!-- Paddle SDK -->
-  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+
+  <!-- Prevent theme flash -->
   <script>
     (function() {
       var saved = localStorage.getItem('epiko-theme') || 'auto';
@@ -17,61 +17,77 @@
       document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     })();
   </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root, [data-theme="dark"] {
-      --bg: #0c0c0f;
-      --surface: #13131a;
-      --border: #1e1e2e;
+    /* ── DARK THEME ── */
+    :root,
+    [data-theme="dark"] {
+      --bg:           #0c0c0f;
+      --surface:      #13131a;
+      --border:       #1e1e2e;
       --border-hover: #2e2e4a;
-      --text: #e2e2f0;
-      --muted: #6b6b8a;
-      --accent-a: #5eead4;
-      --accent-b: #818cf8;
-      --grid-line: rgba(94,234,212,0.03);
-      --blob-a: rgba(94,234,212,0.04);
-      --blob-b: rgba(129,140,248,0.04);
-      --card-glow-a: rgba(94,234,212,0.07);
-      --card-glow-b: rgba(129,140,248,0.07);
-      --tag-teal-bg: rgba(94,234,212,0.1);
-      --tag-ind-bg: rgba(129,140,248,0.1);
+      --text:         #e2e2f0;
+      --muted:        #6b6b8a;
+      --accent-a:     #5eead4;
+      --accent-b:     #818cf8;
+      --accent-c:     #fbbf24;
+      --grid-line:    rgba(94,234,212,0.03);
+      --blob-a:       rgba(94,234,212,0.04);
+      --blob-b:       rgba(129,140,248,0.04);
+      --card-glow-a:  rgba(94,234,212,0.07);
+      --card-glow-b:  rgba(129,140,248,0.07);
+      --tag-teal-bg:  rgba(94,234,212,0.1);
+      --tag-ind-bg:   rgba(129,140,248,0.1);
+      --card-shadow:  none;
     }
+
+    /* ── LIGHT THEME ── */
     [data-theme="light"] {
-      --bg: #f8f8fc;
-      --surface: #ffffff;
-      --border: #e2e2ee;
+      --bg:           #f8f8fc;
+      --surface:      #ffffff;
+      --border:       #e2e2ee;
       --border-hover: #c8c8e0;
-      --text: #1a1a2e;
-      --muted: #7070a0;
-      --accent-a: #0d9488;
-      --accent-b: #4f46e5;
-      --grid-line: rgba(13,148,136,0.06);
-      --blob-a: rgba(13,148,136,0.06);
-      --blob-b: rgba(79,70,229,0.06);
-      --card-glow-a: rgba(13,148,136,0.05);
-      --card-glow-b: rgba(79,70,229,0.05);
-      --tag-teal-bg: rgba(13,148,136,0.08);
-      --tag-ind-bg: rgba(79,70,229,0.08);
+      --text:         #1a1a2e;
+      --muted:        #7070a0;
+      --accent-a:     #0d9488;
+      --accent-b:     #4f46e5;
+      --accent-c:     #d97706;
+      --grid-line:    rgba(13,148,136,0.06);
+      --blob-a:       rgba(13,148,136,0.06);
+      --blob-b:       rgba(79,70,229,0.06);
+      --card-glow-a:  rgba(13,148,136,0.05);
+      --card-glow-b:  rgba(79,70,229,0.05);
+      --tag-teal-bg:  rgba(13,148,136,0.08);
+      --tag-ind-bg:   rgba(79,70,229,0.08);
+      --card-shadow:  0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
     }
 
     html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Geist Mono', monospace;
       min-height: 100vh;
+      overflow-x: hidden;
       transition: background 0.25s, color 0.25s;
     }
+
+    /* grid bg */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
       z-index: 0;
     }
+
     header {
       position: sticky;
       top: 0;
@@ -84,47 +100,40 @@
       backdrop-filter: blur(12px);
       background: color-mix(in srgb, var(--bg) 80%, transparent);
     }
+
     .logo {
       font-family: 'Geist', sans-serif;
       font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      text-decoration: none;
-      color: var(--text);
     }
     .logo-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--accent-a);
       box-shadow: 0 0 10px var(--accent-a);
-      animation: pulse 2.5s infinite;
+      animation: pulse 2.5s ease-in-out infinite;
     }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      50% { opacity: 0.4; box-shadow: 0 0 3px var(--accent-a); }
     }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-    nav {
-      display: flex;
-      gap: 1rem;
-    }
+
+    .header-right { display: flex; align-items: center; gap: 1.5rem; }
     nav a {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
     }
-    nav a:hover {
-      color: var(--text);
-    }
+    nav a:hover { color: var(--text); }
 
-    /* Theme Toggle */
+    /* theme toggle 3-button */
     .theme-toggle {
       display: flex;
       background: var(--surface);
@@ -140,67 +149,56 @@
       padding: 5px 7px;
       border-radius: 4px;
       color: var(--muted);
+      transition: all 0.15s;
       display: flex;
       align-items: center;
     }
-    .theme-btn svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      fill: none;
-    }
-    .theme-btn.active {
-      background: var(--border-hover);
-      color: var(--text);
-    }
-    .theme-btn:hover {
-      color: var(--text);
-      background: var(--border);
-    }
+    .theme-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .theme-btn:hover { color: var(--text); background: var(--border); }
+    .theme-btn.active { background: var(--border-hover); color: var(--text); }
 
+    /* hero */
     .hero {
-      text-align: center;
-      padding: 5rem 2rem 3rem;
       position: relative;
       z-index: 10;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
     }
     .eyebrow {
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       color: var(--accent-a);
       text-transform: uppercase;
+      margin-bottom: 1rem;
       opacity: 0;
-      animation: fadeUp 0.6s 0.1s forwards;
+      animation: fadeUp 0.6s 0.1s ease forwards;
     }
     .hero h1 {
       font-family: 'Geist', sans-serif;
       font-size: clamp(2.5rem, 7vw, 4.8rem);
       font-weight: 800;
       line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
       opacity: 0;
-      animation: fadeUp 0.6s 0.2s forwards;
+      animation: fadeUp 0.6s 0.2s ease forwards;
     }
     .hero h1 em {
-      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
     .hero p {
-      max-width: 600px;
-      margin: 1rem auto 2rem;
+      max-width: 520px;
+      margin: 0 auto 2rem;
       color: var(--muted);
+      font-size: 0.9rem;
       opacity: 0;
-      animation: fadeUp 0.6s 0.3s forwards;
+      animation: fadeUp 0.6s 0.3s ease forwards;
     }
-    .hero-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.6s 0.4s forwards;
-    }
+    .hero-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.6s 0.4s ease forwards; }
     .btn {
       font-family: 'Geist Mono', monospace;
       font-size: 0.78rem;
@@ -210,30 +208,15 @@
       border: 1px solid var(--border);
       color: var(--muted);
       transition: all 0.2s;
-      background: transparent;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
     }
-    .btn-primary {
-      background: var(--accent-b);
-      border-color: var(--accent-b);
-      color: white;
-    }
-    .btn-primary:hover {
-      filter: brightness(1.05);
-      color: white;
-    }
-    .btn:hover {
-      border-color: var(--border-hover);
-      color: var(--text);
-    }
+    .btn:hover { border-color: var(--border-hover); color: var(--text); }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* projects grid */
     .projects {
       max-width: 1000px;
       margin: 0 auto;
@@ -245,20 +228,17 @@
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 20px;
       padding: 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
       transition: all 0.25s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: var(--card-shadow);
     }
-    .card:hover {
-      transform: translateY(-4px);
-    }
-    .card.streamix:hover {
-      border-color: var(--accent-a);
-    }
-    .card.actionstack:hover {
-      border-color: var(--accent-b);
-    }
+    .card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
+    .card.streamix:hover { border-color: var(--accent-a); }
+    .card.actionstack:hover { border-color: var(--accent-b); }
     .card-tag {
       font-size: 0.68rem;
       text-transform: uppercase;
@@ -267,53 +247,41 @@
       display: inline-block;
       margin-bottom: 1rem;
     }
-    .tag-teal {
-      background: var(--tag-teal-bg);
-      color: var(--accent-a);
-    }
-    .tag-indigo {
-      background: var(--tag-ind-bg);
-      color: var(--accent-b);
-    }
+    .tag-teal { background: var(--tag-teal-bg); color: var(--accent-a); }
+    .tag-indigo { background: var(--tag-ind-bg); color: var(--accent-b); }
     .card h2 {
       font-family: 'Geist', sans-serif;
       font-size: 1.8rem;
+      font-weight: 800;
       margin-bottom: 0.35rem;
     }
     .card-desc {
       font-size: 0.82rem;
       color: var(--muted);
+      line-height: 1.6;
       margin: 0.75rem 0 1.2rem;
     }
-    .badge-row {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
+    .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
     .badge {
       font-size: 0.68rem;
       padding: 0.2rem 0.6rem;
       border: 1px solid var(--border);
       border-radius: 30px;
+      color: var(--muted);
     }
-    .license-options {
-      margin-top: 1.2rem;
-      padding-top: 1rem;
-      border-top: 1px dashed var(--border);
-    }
-    .license-price {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
-    }
-    .license-price small {
-      font-weight: normal;
-      font-size: 0.7rem;
+    .price-badge {
+      margin-top: 0.5rem;
+      font-weight: 500;
+      background: var(--blob-a);
+      padding: 0.35rem 0.9rem;
+      border-radius: 40px;
+      display: inline-block;
+      font-size: 0.75rem;
+      border-left: 2px solid var(--accent-a);
     }
 
-    /* legal section */
-    .legal-section {
+    /* pricing sections + legal cards */
+    .legal-pricing-section {
       max-width: 1100px;
       margin: 2rem auto 4rem;
       padding: 0 2rem;
@@ -322,11 +290,11 @@
       font-family: 'Geist', sans-serif;
       font-size: 1.6rem;
       font-weight: 700;
+      letter-spacing: -0.02em;
       margin: 2rem 0 1rem;
-      scroll-margin-top: 80px;
-    }
-    .section-title:first-of-type {
-      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid-2col {
       display: grid;
@@ -338,277 +306,220 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 1.5rem;
-      scroll-margin-top: 90px;
+      padding: 1.5rem 1.6rem;
+      transition: all 0.2s;
     }
     .legal-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
+      font-family: 'Geist', sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-    .legal-card p, .legal-card li {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .legal-card ul {
-      padding-left: 1.2rem;
-      margin-top: 0.5rem;
-    }
-    .hr-light {
-      margin: 1rem 0;
-      border: 0;
-      height: 1px;
-      background: var(--border);
-    }
+    .legal-card h3 i { font-style: normal; font-size: 1.2rem; }
+    .legal-card p, .legal-card li { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .legal-card ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+    .legal-card li { margin: 0.35rem 0; }
+    .hr-light { margin: 1rem 0; border: 0; height: 1px; background: var(--border); }
     .contact-email {
       font-family: monospace;
       background: var(--bg);
       padding: 0.15rem 0.3rem;
       border-radius: 6px;
+      font-size: 0.75rem;
     }
-    .blob {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      filter: blur(110px);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .blob-a {
+    .license-note {
       background: var(--blob-a);
-      top: -150px;
-      left: -150px;
+      border-left: 3px solid var(--accent-a);
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      margin: 1rem 0;
+      font-size: 0.75rem;
     }
-    .blob-b {
-      background: var(--blob-b);
-      bottom: -150px;
-      right: -150px;
-    }
+
     footer {
       border-top: 1px solid var(--border);
-      padding: 2rem;
+      padding: 2rem 2rem;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       font-size: 0.7rem;
       color: var(--muted);
     }
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
+    .blob {
+      position: fixed;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 1;
+      transition: background 0.5s;
     }
-    footer a:hover {
-      color: var(--text);
-    }
+    .blob-a { background: var(--blob-a); top: -150px; left: -150px; }
+    .blob-b { background: var(--blob-b); bottom: -150px; right: -150px; }
+
     @media (max-width: 720px) {
-      .legal-section {
-        padding: 0 1.2rem;
-      }
-      .projects {
-        padding: 1rem 1.2rem;
-      }
-      nav {
-        display: none;
-      }
+      .legal-pricing-section { padding: 0 1.2rem; }
+      .projects { padding: 1rem 1.2rem; }
+      header { padding: 1rem; }
     }
   </style>
 </head>
 <body>
+
 <div class="blob blob-a"></div>
 <div class="blob blob-b"></div>
 
 <header>
-  <a class="logo" href="#"><span class="logo-dot"></span>epikodelabs</a>
+  <a class="logo" href="#">
+    <span class="logo-dot"></span>
+    epikodelabs
+  </a>
   <div class="header-right">
-    <nav>
-      <a href="#pricing">pricing</a>
-      <a href="#terms">terms</a>
-      <a href="#refund">refund</a>
-      <a href="#privacy">privacy</a>
-      <a href="https://github.com/epikodelabs" target="_blank">public GitHub ↗</a>
-    </nav>
-    <div class="theme-toggle">
-      <button class="theme-btn" data-mode="light"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
-      <button class="theme-btn" data-mode="dark"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
-      <button class="theme-btn" data-mode="auto"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></button>
+    <nav><a href="https://github.com/epikodelabs" target="_blank">github ↗</a></nav>
+    <div class="theme-toggle" role="group">
+      <button class="theme-btn" data-mode="light" title="Light">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="theme-btn" data-mode="dark" title="Dark">
+        <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="theme-btn" data-mode="auto" title="Auto">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
 <section class="hero">
-  <span class="eyebrow">dual license · open core (AGPL) · commercial available</span>
-  <h1>Build<br /><em>reactive apps</em><br />that scale.</h1>
-  <p>Streamix and Actionstack are Open Source under AGPL-3.0. Purchase a commercial license to keep your source code proprietary and access private repositories.</p>
+  <span class="eyebrow">open-source · typescript · reactive · licenses</span>
+  <h1><em>reactive apps</em><br />that scale, now<br />with enterprise options</h1>
+  <p>Streamix + Actionstack: pull-based streams, modular state management. Open-source (AGPL) or choose a commercial one-time license.</p>
   <div class="hero-links">
-    <a class="btn" href="#pricing">↓ view commercial pricing</a>
-    <a class="btn" href="https://github.com/epikodelabs" target="_blank">↗ public AGPL source</a>
+    <a class="btn" href="#pricing">↓ view licensing & pricing</a>
+    <a class="btn" href="https://github.com/epikodelabs" target="_blank">↗ GitHub org</a>
   </div>
 </section>
 
-<div class="projects" id="pricing">
-  <div class="card streamix">
-    <span class="card-tag tag-teal">streamix · reactive streams</span>
+<div class="projects">
+  <a class="card streamix" href="https://epikodelabs.github.io/streamix">
+    <span class="card-tag tag-teal">library · reactive streams</span>
     <h2>streamix</h2>
-    <p class="card-desc">Async generator based streams, pull-based, tiny footprint. Free under AGPL-3.0. Buy a commercial license to close your source.</p>
-    <div class="badge-row"><span class="badge">async generators</span><span class="badge">pull-based</span><span class="badge">AGPL-3.0</span></div>
-    <div class="license-options">
-      <div class="license-price">💰 Commercial license: <strong>$25</strong> <small>(individual)</small> / <strong>$30</strong> <small>(team up to 10)</small></div>
-      <button class="btn btn-primary" data-product="streamix-individual" data-price="25" data-name="Streamix Commercial License (Individual)">Buy individual license →</button>
-      <button class="btn" data-product="streamix-team" data-price="30" data-name="Streamix Commercial License (Team)" style="margin-left: 0.5rem;">Buy team license →</button>
-      <p style="font-size: 0.7rem; margin-top: 0.5rem;">✔️ Private GitHub access + proprietary use rights</p>
+    <p class="card-desc">Async generator-based streams — lightweight, pull-based, familiar RxJS-like operators. Zero-overhead backpressure, tiny footprint.</p>
+    <div class="badge-row">
+      <span class="badge">async generators</span>
+      <span class="badge">pull-based</span>
+      <span class="badge">AGPL-3.0</span>
     </div>
-  </div>
-  <div class="card actionstack">
-    <span class="card-tag tag-indigo">actionstack · state management</span>
+    <div class="price-badge">✨ commercial license: $25 (individual) / $30 (team) — one-time</div>
+  </a>
+  <a class="card actionstack" href="https://epikodelabs.github.io/actionstack">
+    <span class="card-tag tag-indigo">library · state management</span>
     <h2>actionstack</h2>
-    <p class="card-desc">Modular state built on streamix. Zero reducers, reactive core. Open source (AGPL) or commercial perpetual license.</p>
-    <div class="badge-row"><span class="badge">state mgmt</span><span class="badge">modular actions</span><span class="badge">AGPL-3.0</span></div>
-    <div class="license-options">
-      <div class="license-price">💰 Commercial license: <strong>$10</strong> <small>(flat rate, individuals & teams)</small></div>
-      <button class="btn btn-primary" data-product="actionstack" data-price="10" data-name="Actionstack Commercial License">Buy actionstack license →</button>
-      <p style="font-size: 0.7rem; margin-top: 0.5rem;">✔️ Private GitHub access · remove AGPL obligations</p>
+    <p class="card-desc">Next-gen state management on streamix. Modular actions, no reducers, reactive and scalable for modern TypeScript apps.</p>
+    <div class="badge-row">
+      <span class="badge">modular state</span>
+      <span class="badge">reactive core</span>
+      <span class="badge">AGPL-3.0</span>
     </div>
-  </div>
+    <div class="price-badge">🚀 commercial license: $10 (individual & team) — one-time</div>
+  </a>
 </div>
 
-<div class="legal-section">
-  <!-- HOW LICENSING WORKS (dual license explanation) -->
+<!-- ========== PRICING + LEGAL (integrated) ========== -->
+<div id="pricing" class="legal-pricing-section">
+  <!-- Open-Source reminder + AGPL note -->
+  <div class="legal-card" style="border-radius: 20px; margin-bottom: 2rem;">
+    <h3 style="margin-bottom: 0.25rem;">📖 AGPL‑3.0 remains free</h3>
+    <p>Both libraries are <strong>open source</strong> under AGPL‑3.0. You can use, modify and distribute them at no cost as long as you comply with the AGPL terms (disclose source, same license for network interactions). Commercial licenses remove the AGPL obligation for your proprietary code – ideal for SaaS or internal tools.</p>
+  </div>
+
+  <!-- TERMS OF SERVICE + PRIVACY + REFUND integrated block -->
+  <div class="section-title" style="margin-top: 1rem;">📄 legal & policies</div>
   <div class="grid-2col">
     <div class="legal-card">
-      <h3>🔓 Open Source (AGPL-3.0)</h3>
-      <p>Public GitHub repositories are licensed under AGPL-3.0. You may use, modify, and distribute freely, but <strong>derivative works and networked services must also be open source</strong>.</p>
-      <ul><li>✅ No payment required</li><li>✅ Full source visibility</li><li>❌ Cannot be used in closed-source / proprietary applications</li></ul>
+      <h3 id="terms"><i>📜</i> Terms of Service</h3>
+      <p><strong>Effective: May 7, 2026</strong> — Use of epikodelabs docs, repos, packages, and paid services.</p>
+      <ul>
+        <li>Open source licensed under AGPL-3.0-only.</li>
+        <li>Paid services governed by separate written agreements.</li>
+        <li>No warranty & limitation of liability as described.</li>
+        <li>Acceptable use: no malicious interference or license misrepresentation.</li>
+        <li>If you purchase a commercial license, these terms apply to the website, while license terms override for software usage rights.</li>
+      </ul>
+      <p style="margin-top: 8px;">🔗 Full ToS available on request / or summarized here. By accessing you agree.</p>
     </div>
     <div class="legal-card">
-      <h3>🔒 Commercial License (Paid)</h3>
-      <p>One-time purchase. Removes AGPL restrictions for your codebase. Grants access to <strong>private GitHub repositories</strong> containing the same sources under a proprietary-friendly license.</p>
-      <ul><li>✅ Use in closed-source / SaaS products</li><li>✅ Private repo access (source disclosure AFTER purchase)</li><li>✅ Perpetual rights for purchased major version</li></ul>
+      <h3 id="privacy"><i>🔐</i> Privacy Policy</h3>
+      <p>We collect minimal info: contact details you provide (email, messages), public GitHub contributions, and basic logs from hosting providers. No analytics cookies, no selling data.</p>
+      <ul>
+        <li>Emails & inquiries stored only to respond.</li>
+        <li>We do not track you across external sites.</li>
+        <li>Data retention: as needed for support & legal compliance.</li>
+        <li>GDPR/CCPA rights? Contact <span class="contact-email">oleksii.shepel@outlook.com</span></li>
+      </ul>
+    </div>
+    <div class="legal-card">
+      <h3 id="refund"><i>💸</i> Refund Policy (Paid Licenses)</h3>
+      <p><strong>Commercial licenses (streamix/actionstack):</strong> Because license keys are delivered digitally and grant perpetual rights, <strong>all license purchases are final and non-refundable</strong> unless otherwise required by law. If a technical defect prevents activation, we offer a replacement or refund at our discretion.</p>
+      <ul>
+        <li>✅ Refund requests considered within 7 days if license not used / mis-delivered.</li>
+        <li>❌ No refunds for change of mind or discontinued projects.</li>
+        <li>Paid services (consulting): refund per separate SOW.</li>
+      </ul>
+      <p>Contact <span class="contact-email">oleksii.shepel@outlook.com</span> with invoice number.</p>
+    </div>
+    <div class="legal-card">
+      <h3><i>⚙️</i> Commercial License FAQ</h3>
+      <p><strong>Are these prices too small?</strong> We intentionally keep one-time licenses affordable for indie developers and small teams — $25/$30 for streamix and $10 for actionstack is competitive for perpetual rights. It helps sustain open-source development while keeping it accessible. For enterprises with custom needs, contact us for customized agreements.</p>
+      <p><strong>What do I get?</strong> A license certificate, perpetual use rights for the major version, and removal of AGPL constraints in your proprietary codebase.</p>
+      <p><strong>Payment methods:</strong> PayPal / wire / invoice via email.</p>
     </div>
   </div>
 
-  <!-- REFUND POLICY SECTION with anchor -->
-  <h2 id="refund" class="section-title">↩️ refund policy</h2>
-  <div class="grid-2col">
-    <div class="legal-card">
-      <h3>digital license purchases</h3>
-      <p>Due to the digital nature of software licenses, all sales are final. If you encounter a technical issue that prevents using the private repository or the licensed software, we will issue a full refund or replacement within 14 days of purchase.</p>
-      <p><strong>To request a refund:</strong> Email <span class="contact-email">oleksii.shepel@outlook.com</span> with your order number and a brief explanation. Approved refunds are processed within 5-7 business days.</p>
-    </div>
-    <div class="legal-card">
-      <h3>paid services & consulting</h3>
-      <p>For custom development, support retainers, or consulting services, refund eligibility is governed by the applicable Statement of Work. Generally, fees for work already performed are non-refundable, while prepaid unused time may be refunded pro-rata.</p>
-    </div>
-  </div>
-
-  <!-- TERMS OF SERVICE SECTION with anchor -->
-  <h2 id="terms" class="section-title">📋 terms of service</h2>
-  <div class="grid-2col">
-    <div class="legal-card">
-      <h3>1. dual license structure</h3>
-      <p>epikodelabs projects are offered under a dual licensing model: (a) AGPL-3.0 for open source use, or (b) commercial license for proprietary use. By purchasing a commercial license, you agree to these terms.</p>
-      <h3 style="margin-top: 1rem;">2. commercial license grant</h3>
-      <p>Upon payment, you receive a non-exclusive, perpetual, worldwide license to use the software in binary or source form within your organization, without requiring you to open source your own code.</p>
-      <h3 style="margin-top: 1rem;">3. restrictions</h3>
-      <p>You may not redistribute the software as a competing library or product. You may not remove copyright or license notices from the source.</p>
-    </div>
-    <div class="legal-card">
-      <h3>4. no warranty</h3>
-      <p>The software is provided "AS IS" without warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
-      <h3 style="margin-top: 1rem;">5. limitation of liability</h3>
-      <p>To the maximum extent permitted by law, epikodelabs shall not be liable for any indirect, incidental, or consequential damages arising from use of the software.</p>
-      <h3 style="margin-top: 1rem;">6. governing law</h3>
-      <p>These terms are governed by the laws of the European Union / Spain (or your local jurisdiction). Any disputes shall be resolved through binding arbitration or courts in Barcelona, unless otherwise required.</p>
-    </div>
-  </div>
-
-  <!-- PRIVACY POLICY SECTION with anchor -->
-  <h2 id="privacy" class="section-title">🔐 privacy policy</h2>
-  <div class="grid-2col">
-    <div class="legal-card">
-      <h3>information we collect</h3>
-      <p>When you purchase a license via Paddle, we receive your email address, name, and transaction details. We do not store credit card information — Paddle handles all payment processing (PCI-DSS compliant).</p>
-      <p>When you visit this site, we collect no analytics or tracking cookies. Basic server logs (IP, user agent) may be kept temporarily for security purposes.</p>
-      <h3 style="margin-top: 1rem;">how we use your data</h3>
-      <p>We use your email to send license keys, private repository invites, and important updates about the software (e.g., security notices). We never sell or rent your personal data.</p>
-    </div>
-    <div class="legal-card">
-      <h3>your rights</h3>
-      <p>You may request access, correction, or deletion of your personal data by contacting <span class="contact-email">oleksii.shepel@outlook.com</span>. We will respond within 30 days.</p>
-      <h3 style="margin-top: 1rem;">data retention</h3>
-      <p>We retain purchase records for tax and legal compliance (typically 7 years). You may request earlier anonymization where legally permissible.</p>
-      <h3 style="margin-top: 1rem;">third-party services</h3>
-      <p>This site uses Paddle for payment processing and GitHub for private repository hosting. Please refer to their respective privacy policies.</p>
-    </div>
-  </div>
-
-  <!-- Contact information card -->
+  <!-- Additional compliance block (refund / terms details merged) -->
   <div class="legal-card" style="margin-top: 0.5rem;">
-    <h3>📬 contact & support</h3>
-    <p>For questions about licensing, refunds, privacy, or commercial inquiries: <strong><span class="contact-email">oleksii.shepel@outlook.com</span></strong></p>
-    <p>For technical issues with private repository access, include your order number and GitHub username.</p>
+    <h3 style="font-size: 1.1rem;">📬 Contact & Inquiries</h3>
+    <p>For questions about commercial licensing, bulk pricing, or custom support: <strong>oleksii.shepel@outlook.com</strong> . We aim to reply within 2 business days.</p>
     <div class="hr-light"></div>
-    <p style="font-size: 0.7rem;">© 2026 epikodelabs — Dual License (AGPL-3.0 / Commercial). Effective date: May 7, 2026.</p>
+    <p style="font-size: 0.7rem;">© 2026 epikodelabs — All documentation and license policies are effective as of May 7, 2026 and replace previous versions. Open-source contributions are subject to AGPL-3.0. The names “streamix” and “actionstack” are trademarks of epikodelabs.</p>
   </div>
 </div>
 
 <footer>
-  <span>© 2026 epikodelabs</span>
-  <div style="display: flex; gap: 1.5rem;">
-    <a href="#pricing">pricing</a>
-    <a href="#terms">terms</a>
-    <a href="#refund">refund</a>
-    <a href="#privacy">privacy</a>
-    <a href="https://github.com/epikodelabs" target="_blank">public GitHub</a>
-  </div>
+  <span>© 2026 epikodelabs — reactive libraries</span>
+  <a href="https://github.com/epikodelabs" target="_blank">github.com/epikodelabs</a>
   <span>📧 oleksii.shepel@outlook.com</span>
 </footer>
 
 <script>
-  // Theme handling
   const KEY = 'epiko-theme';
   const html = document.documentElement;
   const btns = document.querySelectorAll('.theme-btn');
   const mql = window.matchMedia('(prefers-color-scheme: dark)');
-  function resolveTheme(mode) { return mode === 'auto' ? (mql.matches ? 'dark' : 'light') : mode; }
-  function applyMode(mode) { html.setAttribute('data-theme', resolveTheme(mode)); btns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode)); }
-  applyMode(localStorage.getItem(KEY) || 'auto');
-  btns.forEach(btn => btn.addEventListener('click', () => { const mode = btn.dataset.mode; localStorage.setItem(KEY, mode); applyMode(mode); }));
-  mql.addEventListener('change', () => { if ((localStorage.getItem(KEY) || 'auto') === 'auto') applyMode('auto'); });
 
-  // Paddle initialization (sandbox by default — replace with live credentials)
-  Paddle.Environment.set('sandbox');
-  Paddle.Initialize({
-    vendor: 12345, // <-- REPLACE with your Paddle vendor ID
-    eventCallback: function(event) { console.log("Paddle event:", event); }
+  function resolveTheme(mode) {
+    return mode === 'auto' ? (mql.matches ? 'dark' : 'light') : mode;
+  }
+
+  function applyMode(mode) {
+    html.setAttribute('data-theme', resolveTheme(mode));
+    btns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  }
+
+  applyMode(localStorage.getItem(KEY) || 'auto');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      localStorage.setItem(KEY, mode);
+      applyMode(mode);
+    });
   });
 
-  // Attach buy handlers
-  document.querySelectorAll('[data-product]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const productName = btn.dataset.name;
-      const price = parseFloat(btn.dataset.price);
-      // In production, replace with actual product IDs from Paddle Dashboard
-      Paddle.Checkout.open({
-        product: 12345, // Replace with actual product ID
-        title: productName,
-        quantity: 1,
-        customPrice: price,
-        allowedPaymentMethods: ['credit_card', 'paypal'],
-        successCallback: (data) => {
-          console.log("Purchase success", data);
-          alert("Thank you for your purchase! You will receive an email with private repository access within 15 minutes.");
-        },
-        errorCallback: (err) => {
-          console.error(err);
-          alert("Payment error: " + (err.message || "Please try again or contact support."));
-        }
-      });
-    });
+  mql.addEventListener('change', () => {
+    if ((localStorage.getItem(KEY) || 'auto') === 'auto') applyMode('auto');
   });
 </script>
 </body>
