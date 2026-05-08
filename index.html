@@ -21,94 +21,400 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root, [data-theme="dark"] {
-      --bg: #0c0c0f; --surface: #13131a; --border: #1e1e2e; --border-hover: #2e2e4a;
-      --text: #e2e2f0; --muted: #6b6b8a; --accent-a: #5eead4; --accent-b: #818cf8;
-      --grid-line: rgba(94,234,212,0.03); --blob-a: rgba(94,234,212,0.04); --blob-b: rgba(129,140,248,0.04);
-      --card-glow-a: rgba(94,234,212,0.07); --card-glow-b: rgba(129,140,248,0.07);
-      --tag-teal-bg: rgba(94,234,212,0.1); --tag-ind-bg: rgba(129,140,248,0.1);
+      --bg: #0c0c0f;
+      --surface: #13131a;
+      --border: #1e1e2e;
+      --border-hover: #2e2e4a;
+      --text: #e2e2f0;
+      --muted: #6b6b8a;
+      --accent-a: #5eead4;
+      --accent-b: #818cf8;
+      --grid-line: rgba(94,234,212,0.03);
+      --blob-a: rgba(94,234,212,0.04);
+      --blob-b: rgba(129,140,248,0.04);
+      --card-glow-a: rgba(94,234,212,0.07);
+      --card-glow-b: rgba(129,140,248,0.07);
+      --tag-teal-bg: rgba(94,234,212,0.1);
+      --tag-ind-bg: rgba(129,140,248,0.1);
     }
     [data-theme="light"] {
-      --bg: #f8f8fc; --surface: #ffffff; --border: #e2e2ee; --border-hover: #c8c8e0;
-      --text: #1a1a2e; --muted: #7070a0; --accent-a: #0d9488; --accent-b: #4f46e5;
-      --grid-line: rgba(13,148,136,0.06); --blob-a: rgba(13,148,136,0.06); --blob-b: rgba(79,70,229,0.06);
-      --card-glow-a: rgba(13,148,136,0.05); --card-glow-b: rgba(79,70,229,0.05);
-      --tag-teal-bg: rgba(13,148,136,0.08); --tag-ind-bg: rgba(79,70,229,0.08);
+      --bg: #f8f8fc;
+      --surface: #ffffff;
+      --border: #e2e2ee;
+      --border-hover: #c8c8e0;
+      --text: #1a1a2e;
+      --muted: #7070a0;
+      --accent-a: #0d9488;
+      --accent-b: #4f46e5;
+      --grid-line: rgba(13,148,136,0.06);
+      --blob-a: rgba(13,148,136,0.06);
+      --blob-b: rgba(79,70,229,0.06);
+      --card-glow-a: rgba(13,148,136,0.05);
+      --card-glow-b: rgba(79,70,229,0.05);
+      --tag-teal-bg: rgba(13,148,136,0.08);
+      --tag-ind-bg: rgba(79,70,229,0.08);
     }
 
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg); color: var(--text);
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Geist Mono', monospace;
-      min-height: 100vh; transition: background 0.25s, color 0.25s;
+      min-height: 100vh;
+      transition: background 0.25s, color 0.25s;
     }
     body::before {
-      content: ''; position: fixed; inset: 0;
+      content: '';
+      position: fixed;
+      inset: 0;
       background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-      background-size: 40px 40px; pointer-events: none; z-index: 0;
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
     }
     header {
-      position: sticky; top: 0; z-index: 100; padding: 1.25rem 2rem;
-      display: flex; align-items: center; justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 80%, transparent);
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
     }
-    .logo { font-family: 'Geist', sans-serif; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text); }
-    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-a); box-shadow: 0 0 10px var(--accent-a); animation: pulse 2.5s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    .header-right { display: flex; align-items: center; gap: 1.5rem; }
-    nav a { font-size: 0.78rem; color: var(--muted); text-decoration: none; }
-    nav a:hover { color: var(--text); }
+    .logo {
+      font-family: 'Geist', sans-serif;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-a);
+      box-shadow: 0 0 10px var(--accent-a);
+      animation: pulse 2.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--text);
+    }
 
     /* Theme Toggle */
-    .theme-toggle { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 3px; gap: 2px; }
-    .theme-btn { background: none; border: none; cursor: pointer; padding: 5px 7px; border-radius: 4px; color: var(--muted); display: flex; align-items: center; }
-    .theme-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.8; fill: none; }
-    .theme-btn.active { background: var(--border-hover); color: var(--text); }
-    .theme-btn:hover { color: var(--text); background: var(--border); }
+    .theme-toggle {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .theme-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px 7px;
+      border-radius: 4px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+    }
+    .theme-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+    .theme-btn.active {
+      background: var(--border-hover);
+      color: var(--text);
+    }
+    .theme-btn:hover {
+      color: var(--text);
+      background: var(--border);
+    }
 
-    .hero { text-align: center; padding: 5rem 2rem 3rem; position: relative; z-index: 10; }
-    .eyebrow { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--accent-a); text-transform: uppercase; opacity: 0; animation: fadeUp 0.6s 0.1s forwards; }
-    .hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(2.5rem, 7vw, 4.8rem); font-weight: 800; line-height: 1.05; opacity: 0; animation: fadeUp 0.6s 0.2s forwards; }
-    .hero h1 em { background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero p { max-width: 600px; margin: 1rem auto 2rem; color: var(--muted); opacity: 0; animation: fadeUp 0.6s 0.3s forwards; }
-    .hero-links { display: flex; justify-content: center; gap: 1rem; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
-    .btn { font-family: 'Geist Mono', monospace; font-size: 0.78rem; padding: 0.6rem 1.3rem; border-radius: 6px; text-decoration: none; border: 1px solid var(--border); color: var(--muted); transition: all 0.2s; background: transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem; }
-    .btn-primary { background: var(--accent-b); border-color: var(--accent-b); color: white; }
-    .btn-primary:hover { filter: brightness(1.05); color: white; }
-    .btn:hover { border-color: var(--border-hover); color: var(--text); }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      position: relative;
+      z-index: 10;
+    }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--accent-a);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s forwards;
+    }
+    .hero h1 {
+      font-family: 'Geist', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero h1 em {
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      max-width: 600px;
+      margin: 1rem auto 2rem;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.6s 0.3s forwards;
+    }
+    .hero-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+    .btn {
+      font-family: 'Geist Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.6rem 1.3rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary {
+      background: var(--accent-b);
+      border-color: var(--accent-b);
+      color: white;
+    }
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      color: white;
+    }
+    .btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-    .projects { max-width: 1000px; margin: 0 auto; padding: 1rem 2rem 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.8rem; transition: all 0.25s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .card:hover { transform: translateY(-4px); }
-    .card.streamix:hover { border-color: var(--accent-a); }
-    .card.actionstack:hover { border-color: var(--accent-b); }
-    .card-tag { font-size: 0.68rem; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 30px; display: inline-block; margin-bottom: 1rem; }
-    .tag-teal { background: var(--tag-teal-bg); color: var(--accent-a); }
-    .tag-indigo { background: var(--tag-ind-bg); color: var(--accent-b); }
-    .card h2 { font-family: 'Geist', sans-serif; font-size: 1.8rem; margin-bottom: 0.35rem; }
-    .card-desc { font-size: 0.82rem; color: var(--muted); margin: 0.75rem 0 1.2rem; }
-    .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .badge { font-size: 0.68rem; padding: 0.2rem 0.6rem; border: 1px solid var(--border); border-radius: 30px; }
-    .license-options { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px dashed var(--border); }
-    .license-price { font-weight: 700; font-size: 1.1rem; margin: 0.5rem 0; }
-    .license-price small { font-weight: normal; font-size: 0.7rem; }
+    .projects {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem 2rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.8rem;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card.streamix:hover {
+      border-color: var(--accent-a);
+    }
+    .card.actionstack:hover {
+      border-color: var(--accent-b);
+    }
+    .card-tag {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .tag-teal {
+      background: var(--tag-teal-bg);
+      color: var(--accent-a);
+    }
+    .tag-indigo {
+      background: var(--tag-ind-bg);
+      color: var(--accent-b);
+    }
+    .card h2 {
+      font-family: 'Geist', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.35rem;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0.75rem 0 1.2rem;
+    }
+    .badge-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .badge {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+    }
+    .license-options {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border);
+    }
+    .license-price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+    .license-price small {
+      font-weight: normal;
+      font-size: 0.7rem;
+    }
 
     /* legal section */
-    .legal-pricing-section { max-width: 1100px; margin: 2rem auto 4rem; padding: 0 2rem; }
-    .section-title { font-family: 'Geist', sans-serif; font-size: 1.6rem; font-weight: 700; margin: 2rem 0 1rem; }
-    .grid-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-    .legal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.5rem; }
-    .legal-card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
-    .legal-card p, .legal-card li { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-    .legal-card ul { padding-left: 1.2rem; margin-top: 0.5rem; }
-    .hr-light { margin: 1rem 0; border: 0; height: 1px; background: var(--border); }
-    .contact-email { font-family: monospace; background: var(--bg); padding: 0.15rem 0.3rem; border-radius: 6px; }
-    .blob { position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(110px); pointer-events: none; z-index: 1; }
-    .blob-a { background: var(--blob-a); top: -150px; left: -150px; }
-    .blob-b { background: var(--blob-b); bottom: -150px; right: -150px; }
-    footer { border-top: 1px solid var(--border); padding: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; font-size: 0.7rem; color: var(--muted); }
-    @media (max-width: 720px) { .legal-pricing-section { padding: 0 1.2rem; } .projects { padding: 1rem 1.2rem; } }
+    .legal-section {
+      max-width: 1100px;
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+    }
+    .section-title {
+      font-family: 'Geist', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem;
+      scroll-margin-top: 80px;
+    }
+    .section-title:first-of-type {
+      margin-top: 0;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .legal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.5rem;
+      scroll-margin-top: 90px;
+    }
+    .legal-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .legal-card p, .legal-card li {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .legal-card ul {
+      padding-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .hr-light {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: var(--border);
+    }
+    .contact-email {
+      font-family: monospace;
+      background: var(--bg);
+      padding: 0.15rem 0.3rem;
+      border-radius: 6px;
+    }
+    .blob {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .blob-a {
+      background: var(--blob-a);
+      top: -150px;
+      left: -150px;
+    }
+    .blob-b {
+      background: var(--blob-b);
+      bottom: -150px;
+      right: -150px;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: var(--text);
+    }
+    @media (max-width: 720px) {
+      .legal-section {
+        padding: 0 1.2rem;
+      }
+      .projects {
+        padding: 1rem 1.2rem;
+      }
+      nav {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -118,7 +424,13 @@
 <header>
   <a class="logo" href="#"><span class="logo-dot"></span>epikodelabs</a>
   <div class="header-right">
-    <nav><a href="https://github.com/epikodelabs" target="_blank">public GitHub (AGPL) ↗</a></nav>
+    <nav>
+      <a href="#pricing">pricing</a>
+      <a href="#terms">terms</a>
+      <a href="#refund">refund</a>
+      <a href="#privacy">privacy</a>
+      <a href="https://github.com/epikodelabs" target="_blank">public GitHub ↗</a>
+    </nav>
     <div class="theme-toggle">
       <button class="theme-btn" data-mode="light"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
       <button class="theme-btn" data-mode="dark"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
@@ -129,10 +441,10 @@
 
 <section class="hero">
   <span class="eyebrow">dual license · open core (AGPL) · commercial available</span>
-  <h1><em>reactive primitives</em><br />free to use, pay to close</h1>
+  <h1>Build<br /><em>reactive apps</em><br />that scale.</h1>
   <p>Streamix and Actionstack are Open Source under AGPL-3.0. Purchase a commercial license to keep your source code proprietary and access private repositories.</p>
   <div class="hero-links">
-    <a class="btn" href="#pricing-licenses">↓ view commercial pricing</a>
+    <a class="btn" href="#pricing">↓ view commercial pricing</a>
     <a class="btn" href="https://github.com/epikodelabs" target="_blank">↗ public AGPL source</a>
   </div>
 </section>
@@ -163,8 +475,8 @@
   </div>
 </div>
 
-<div id="pricing-licenses" class="legal-pricing-section">
-  <div class="section-title">📜 How licensing works</div>
+<div class="legal-section">
+  <!-- HOW LICENSING WORKS (dual license explanation) -->
   <div class="grid-2col">
     <div class="legal-card">
       <h3>🔓 Open Source (AGPL-3.0)</h3>
@@ -178,43 +490,80 @@
     </div>
   </div>
 
-  <div class="section-title">💸 pricing & refunds</div>
+  <!-- REFUND POLICY SECTION with anchor -->
+  <h2 id="refund" class="section-title">↩️ refund policy</h2>
   <div class="grid-2col">
     <div class="legal-card">
-      <h3>streamix licenses</h3>
-      <p><strong>$25</strong> — Individual (freelancer / solo dev)<br /><strong>$30</strong> — Team (up to 10 developers)<br />All prices USD, one-time payment via Paddle.</p>
-      <p>After purchase, you receive an email with private GitHub repository invite link and license certificate.</p>
+      <h3>digital license purchases</h3>
+      <p>Due to the digital nature of software licenses, all sales are final. If you encounter a technical issue that prevents using the private repository or the licensed software, we will issue a full refund or replacement within 14 days of purchase.</p>
+      <p><strong>To request a refund:</strong> Email <span class="contact-email">oleksii.shepel@outlook.com</span> with your order number and a brief explanation. Approved refunds are processed within 5-7 business days.</p>
     </div>
     <div class="legal-card">
-      <h3>actionstack license</h3>
-      <p><strong>$10</strong> — Flat rate (individuals & teams).<br />Same terms: perpetual, private repo access, AGPL restriction lifted.</p>
-    </div>
-    <div class="legal-card">
-      <h3>↩️ refund policy</h3>
-      <p>Due to the digital nature of software licenses, all sales are final. If you encounter a technical issue that prevents using the private repository, we will issue a full refund or replacement within 14 days of purchase.</p>
-      <p>Contact: <span class="contact-email">oleksii.shepel@outlook.com</span></p>
-    </div>
-    <div class="legal-card">
-      <h3>📦 what you get after purchase</h3>
-      <ul>
-        <li>Invite to private GitHub repo (sources + commercial license header)</li>
-        <li>Perpetual use rights for the major version bought</li>
-        <li>License certificate (PDF)</li>
-      </ul>
-      <p class="hr-light"></p>
-      <p><strong>Note:</strong> We do not disclose private repo access before payment. The public AGPL repos remain freely available.</p>
+      <h3>paid services & consulting</h3>
+      <p>For custom development, support retainers, or consulting services, refund eligibility is governed by the applicable Statement of Work. Generally, fees for work already performed are non-refundable, while prepaid unused time may be refunded pro-rata.</p>
     </div>
   </div>
 
-  <div class="legal-card">
-    <h3>📋 terms of service & privacy</h3>
-    <p>By purchasing a license you agree that <strong>epikodelabs</strong> grants you a non-exclusive commercial license. We collect only email and transaction info via Paddle (PCI-DSS compliant). Your data is not shared. <br/>Full ToS/Privacy available upon request. <strong>Questions?</strong> <span class="contact-email">oleksii.shepel@outlook.com</span></p>
+  <!-- TERMS OF SERVICE SECTION with anchor -->
+  <h2 id="terms" class="section-title">📋 terms of service</h2>
+  <div class="grid-2col">
+    <div class="legal-card">
+      <h3>1. dual license structure</h3>
+      <p>epikodelabs projects are offered under a dual licensing model: (a) AGPL-3.0 for open source use, or (b) commercial license for proprietary use. By purchasing a commercial license, you agree to these terms.</p>
+      <h3 style="margin-top: 1rem;">2. commercial license grant</h3>
+      <p>Upon payment, you receive a non-exclusive, perpetual, worldwide license to use the software in binary or source form within your organization, without requiring you to open source your own code.</p>
+      <h3 style="margin-top: 1rem;">3. restrictions</h3>
+      <p>You may not redistribute the software as a competing library or product. You may not remove copyright or license notices from the source.</p>
+    </div>
+    <div class="legal-card">
+      <h3>4. no warranty</h3>
+      <p>The software is provided "AS IS" without warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+      <h3 style="margin-top: 1rem;">5. limitation of liability</h3>
+      <p>To the maximum extent permitted by law, epikodelabs shall not be liable for any indirect, incidental, or consequential damages arising from use of the software.</p>
+      <h3 style="margin-top: 1rem;">6. governing law</h3>
+      <p>These terms are governed by the laws of the European Union / Spain (or your local jurisdiction). Any disputes shall be resolved through binding arbitration or courts in Barcelona, unless otherwise required.</p>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY SECTION with anchor -->
+  <h2 id="privacy" class="section-title">🔐 privacy policy</h2>
+  <div class="grid-2col">
+    <div class="legal-card">
+      <h3>information we collect</h3>
+      <p>When you purchase a license via Paddle, we receive your email address, name, and transaction details. We do not store credit card information — Paddle handles all payment processing (PCI-DSS compliant).</p>
+      <p>When you visit this site, we collect no analytics or tracking cookies. Basic server logs (IP, user agent) may be kept temporarily for security purposes.</p>
+      <h3 style="margin-top: 1rem;">how we use your data</h3>
+      <p>We use your email to send license keys, private repository invites, and important updates about the software (e.g., security notices). We never sell or rent your personal data.</p>
+    </div>
+    <div class="legal-card">
+      <h3>your rights</h3>
+      <p>You may request access, correction, or deletion of your personal data by contacting <span class="contact-email">oleksii.shepel@outlook.com</span>. We will respond within 30 days.</p>
+      <h3 style="margin-top: 1rem;">data retention</h3>
+      <p>We retain purchase records for tax and legal compliance (typically 7 years). You may request earlier anonymization where legally permissible.</p>
+      <h3 style="margin-top: 1rem;">third-party services</h3>
+      <p>This site uses Paddle for payment processing and GitHub for private repository hosting. Please refer to their respective privacy policies.</p>
+    </div>
+  </div>
+
+  <!-- Contact information card -->
+  <div class="legal-card" style="margin-top: 0.5rem;">
+    <h3>📬 contact & support</h3>
+    <p>For questions about licensing, refunds, privacy, or commercial inquiries: <strong><span class="contact-email">oleksii.shepel@outlook.com</span></strong></p>
+    <p>For technical issues with private repository access, include your order number and GitHub username.</p>
+    <div class="hr-light"></div>
+    <p style="font-size: 0.7rem;">© 2026 epikodelabs — Dual License (AGPL-3.0 / Commercial). Effective date: May 7, 2026.</p>
   </div>
 </div>
 
 <footer>
-  <span>© 2026 epikodelabs — dual license (AGPL / Commercial)</span>
-  <a href="https://github.com/epikodelabs" target="_blank">public GitHub (AGPL)</a>
+  <span>© 2026 epikodelabs</span>
+  <div style="display: flex; gap: 1.5rem;">
+    <a href="#pricing">pricing</a>
+    <a href="#terms">terms</a>
+    <a href="#refund">refund</a>
+    <a href="#privacy">privacy</a>
+    <a href="https://github.com/epikodelabs" target="_blank">public GitHub</a>
+  </div>
   <span>📧 oleksii.shepel@outlook.com</span>
 </footer>
 
@@ -230,36 +579,34 @@
   btns.forEach(btn => btn.addEventListener('click', () => { const mode = btn.dataset.mode; localStorage.setItem(KEY, mode); applyMode(mode); }));
   mql.addEventListener('change', () => { if ((localStorage.getItem(KEY) || 'auto') === 'auto') applyMode('auto'); });
 
-  // Paddle initialization (sandbox by default, replace with live vendor ID)
-  Paddle.Environment.set('sandbox'); // switch to 'production' when live
+  // Paddle initialization (sandbox by default — replace with live credentials)
+  Paddle.Environment.set('sandbox');
   Paddle.Initialize({
     vendor: 12345, // <-- REPLACE with your Paddle vendor ID
-    token: "your_paddle_client_side_token", // optional but recommended
     eventCallback: function(event) { console.log("Paddle event:", event); }
   });
 
   // Attach buy handlers
   document.querySelectorAll('[data-product]').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const productId = btn.dataset.product;
+      e.preventDefault();
       const productName = btn.dataset.name;
       const price = parseFloat(btn.dataset.price);
-      // For Paddle Classic: you would usually pass `product: 123` or create a price.
-      // Since this is a demo environment, we'll open a custom checkout using Paddle.Checkout.open
-      // In a real integration, you would map each product to a Paddle product ID.
-      // Here we simulate a simple checkout with descriptive metadata.
+      // In production, replace with actual product IDs from Paddle Dashboard
       Paddle.Checkout.open({
-        product: 12345, // Replace with actual product ID from Paddle dashboard — OR use dynamic pricing via custom amount?
+        product: 12345, // Replace with actual product ID
         title: productName,
         quantity: 1,
         customPrice: price,
         allowedPaymentMethods: ['credit_card', 'paypal'],
         successCallback: (data) => {
           console.log("Purchase success", data);
-          alert("Thank you! You will receive an email with private repository access within 15 minutes.");
-          // In real implementation: send webhook to your backend -> trigger GitHub invite.
+          alert("Thank you for your purchase! You will receive an email with private repository access within 15 minutes.");
         },
-        errorCallback: (err) => { console.error(err); alert("Payment error: " + err); }
+        errorCallback: (err) => {
+          console.error(err);
+          alert("Payment error: " + (err.message || "Please try again or contact support."));
+        }
       });
     });
   });
