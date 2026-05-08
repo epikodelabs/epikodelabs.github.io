@@ -250,6 +250,7 @@
       position: relative;
       transition: all 0.25s;
       box-shadow: var(--card-shadow);
+      cursor: pointer;
     }
     .card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
     .card.streamix:hover { border-color: var(--accent-a); }
@@ -452,7 +453,7 @@
 </section>
 
 <div class="projects">
-  <a class="card streamix" href="https://epikodelabs.github.io/streamix" target="_blank" rel="noopener noreferrer">
+  <div class="card streamix" onclick="window.open('https://epikodelabs.github.io/streamix', '_blank')">
     <span class="card-tag tag-teal">library · reactive streams</span>
     <h2>streamix</h2>
     <p class="card-desc">Async generator-based streams — lightweight, pull-based, familiar RxJS-like operators. Zero-overhead backpressure, tiny footprint.</p>
@@ -466,8 +467,8 @@
       <button type="button" class="btn license-btn" onclick="purchaseLicense(event, 'streamix', 'individual', 'pro_01kr3tr6a9zgb085wr2hev07e7')">Buy Individual - $25</button>
       <button type="button" class="btn license-btn" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')">Buy Team - $30</button>
     </div>
-  </a>
-  <a class="card actionstack" href="https://epikodelabs.github.io/actionstack" target="_blank" rel="noopener noreferrer">
+  </div>
+  <div class="card actionstack" onclick="window.open('https://epikodelabs.github.io/actionstack', '_blank')">
     <span class="card-tag tag-indigo">library · state management</span>
     <h2>actionstack</h2>
     <p class="card-desc">Next-gen state management on streamix. Modular actions, no reducers, reactive and scalable for modern TypeScript apps.</p>
@@ -480,7 +481,7 @@
     <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
       <button type="button" class="btn license-btn" onclick="purchaseLicense(event, 'actionstack', 'universal', 'pro_01kr3tsfwt86qj89mxsgxkx23g')">Buy License - $10</button>
     </div>
-  </a>
+  </div>
 </div>
 
 <!-- ========== PRICING + LEGAL (integrated) ========== -->
