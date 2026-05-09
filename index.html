@@ -345,7 +345,7 @@
       color: var(--muted);
     }
     .price-badge {
-      margin-top: 0.5rem;
+      margin-top: 1rem;
       margin-bottom: 0.5rem;
       font-weight: 500;
       background: var(--blob-a);
@@ -697,10 +697,11 @@
     </div>
     <div class="price-badge">✨ commercial license: $25 (individual) / $30 (team) — one-time</div>
     <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-      <button type="button" class="btn license-btn" onclick="purchaseLicense(event, 'streamix', 'individual', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Individual - $25</button>
-      <button type="button" class="btn license-btn" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Team - $30</button>
+      <button type="button" class="btn license-btn" data-license-type="individual" onclick="purchaseLicense(event, 'streamix', 'individual', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Individual - $25</button>
+      <button type="button" class="btn license-btn" data-license-type="team" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Team - $30</button>
     </div>
     <span class="license-btn-required">🔑 Sign in with GitHub above to purchase</span>
+    <span class="license-btn-required" style="font-size: 0.6rem; margin-top: 0.25rem;">💡 For Team license, sign in with your company's shared GitHub account</span>
   </div>
   <div class="card actionstack" onclick="window.open('https://epikodelabs.github.io/actionstack', '_blank')">
     <span class="card-tag tag-indigo">library · state management</span>
@@ -713,7 +714,7 @@
     </div>
     <div class="price-badge">🚀 commercial license: $10 (individual & team) — one-time</div>
     <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-      <button type="button" class="btn license-btn" onclick="purchaseLicense(event, 'actionstack', 'universal', 'pro_01kr3tsfwt86qj89mxsgxkx23g')" disabled>Buy License - $10</button>
+      <button type="button" class="btn license-btn" data-license-type="universal" onclick="purchaseLicense(event, 'actionstack', 'universal', 'pro_01kr3tsfwt86qj89mxsgxkx23g')" disabled>Buy License - $10</button>
     </div>
     <span class="license-btn-required">🔑 Sign in with GitHub above to purchase</span>
   </div>
@@ -1521,27 +1522,19 @@
   // 4. Copy the Client ID and paste it below
   const GITHUB_CLIENT_ID = 'Ov23li2NPCCmIZvNuop2'; // ← your GitHub OAuth App client ID
 
-  // Check if returning from GitHub OAuth redirect
-  (function checkGitHubAuth() {
-    const params = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = params.get('access_token');
-    const tokenType = params.get('token_type');
+  // GitHub OAuth — uses Device Flow (no backend needed, works on static sites)
+  // GitHub's OAuth doesn't support implicit grant (response_type=token) for browser apps.
+  // Device Flow lets users authorize on github.com without a redirect URI.
 
-    if (accessToken && tokenType === 'bearer') {
-      // We got a token from the redirect — fetch user info
-      fetchGitHubUser(accessToken);
-      // Clean the URL (remove the fragment)
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else {
-      // Check localStorage for existing session
-      const saved = localStorage.getItem('epiko-github');
-      if (saved) {
-        try {
-          const user = JSON.parse(saved);
-          updateGitHubUI(user);
-        } catch (e) {
-          localStorage.removeItem('epiko-github');
-        }
+  // Check for existing session on page load
+  (function checkGitHubAuth() {
+    const saved = localStorage.getItem('epiko-github');
+    if (saved) {
+      try {
+        const user = JSON.parse(saved);
+        updateGitHubUI(user);
+      } catch (e) {
+        localStorage.removeItem('epiko-github');
       }
     }
   })();
@@ -1555,13 +1548,110 @@
       return;
     }
 
-    // Redirect to GitHub OAuth
-    // Uses the implicit grant (token) flow — no backend needed
-    const redirectUri = window.location.origin + window.location.pathname;
-    const scope = 'read:user';  // Only need to read the public profile
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&response_type=token`;
+    // Start GitHub Device Flow
+    startDeviceFlow();
+  }
 
-    window.location.href = authUrl;
+  async function startDeviceFlow() {
+    try {
+      // Step 1: Request device code from GitHub
+      const deviceRes = await fetch('https://github.com/login/device/code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          client_id: GITHUB_CLIENT_ID,
+          scope: 'read:user'
+        })
+      });
+
+      if (!deviceRes.ok) {
+        throw new Error(`Device code request failed: ${deviceRes.status}`);
+      }
+
+      const deviceData = await deviceRes.json();
+      const { device_code, user_code, verification_uri, interval } = deviceData;
+
+      // Step 2: Show the user the code and ask them to visit GitHub
+      const userConfirmed = confirm(
+        `GitHub Authorization Required\n\n` +
+        `1. Copy this code: ${user_code}\n` +
+        `2. Click OK to open GitHub\n` +
+        `3. Paste the code on GitHub and authorize\n` +
+        `4. Come back to this page\n\n` +
+        `Your code: ${user_code}`
+      );
+
+      if (!userConfirmed) {
+        return; // User cancelled
+      }
+
+      // Open GitHub authorization page
+      window.open(verification_uri, '_blank');
+
+      // Step 3: Poll for the access token
+      const pollToken = await pollForAccessToken(device_code, interval);
+      if (pollToken) {
+        await fetchGitHubUser(pollToken);
+      }
+    } catch (e) {
+      console.error('[GitHub Auth] Device flow error:', e);
+      alert('GitHub sign-in failed. Please try again.');
+    }
+  }
+
+  async function pollForAccessToken(deviceCode, interval) {
+    const maxAttempts = 30; // Give up after ~2-3 minutes
+    let attempts = 0;
+
+    while (attempts < maxAttempts) {
+      attempts++;
+      await new Promise(resolve => setTimeout(resolve, interval * 1000));
+
+      try {
+        const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            client_id: GITHUB_CLIENT_ID,
+            device_code: deviceCode,
+            grant_type: 'urn:ietf:params:oauth:grant-type:device_code'
+          })
+        });
+
+        const tokenData = await tokenRes.json();
+
+        if (tokenData.access_token) {
+          return tokenData.access_token;
+        }
+
+        if (tokenData.error === 'authorization_pending') {
+          // User hasn't authorized yet — keep polling
+          continue;
+        }
+
+        if (tokenData.error === 'slow_down') {
+          // GitHub asks us to slow down — wait extra
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          continue;
+        }
+
+        if (tokenData.error === 'expired_token' || tokenData.error === 'access_denied') {
+          // User denied or code expired
+          break;
+        }
+      } catch (e) {
+        console.warn('[GitHub Auth] Poll error:', e);
+        // Continue polling on network errors
+      }
+    }
+
+    return null;
   }
 
   async function fetchGitHubUser(token) {
@@ -1579,11 +1669,15 @@
       }
 
       const user = await response.json();
+      // GitHub API returns type: "User" for personal accounts, "Organization" for org accounts
+      const isOrg = user.type === 'Organization';
       const userData = {
         login: user.login,
         name: user.name || user.login,
         avatar: user.avatar_url,
-        id: user.id
+        id: user.id,
+        type: user.type,        // "User" or "Organization"
+        isOrganization: isOrg   // true if it's an org/bot account
       };
 
       localStorage.setItem('epiko-github', JSON.stringify(userData));
@@ -1598,8 +1692,10 @@
     const btn = document.getElementById('githubAuthBtn');
     const label = document.getElementById('githubAuthLabel');
 
-    // Enable or disable all purchase buttons
-    const purchaseBtns = document.querySelectorAll('.license-btn');
+    // Get all purchase buttons by type
+    const individualBtns = document.querySelectorAll('.license-btn[data-license-type="individual"]');
+    const teamBtns = document.querySelectorAll('.license-btn[data-license-type="team"]');
+    const universalBtns = document.querySelectorAll('.license-btn[data-license-type="universal"]');
 
     if (user) {
       btn.classList.add('logged-in');
@@ -1620,8 +1716,18 @@
       label.textContent = user.login;
       btn.title = 'Click to sign out';
 
-      // Enable purchase buttons
-      purchaseBtns.forEach(b => b.disabled = false);
+      // Enable/disable based on account type
+      if (user.isOrganization) {
+        // Organization account → Team and Universal buttons enabled
+        individualBtns.forEach(b => b.disabled = true);
+        teamBtns.forEach(b => b.disabled = false);
+        universalBtns.forEach(b => b.disabled = false);
+      } else {
+        // Personal account → Individual and Universal buttons enabled
+        individualBtns.forEach(b => b.disabled = false);
+        teamBtns.forEach(b => b.disabled = true);
+        universalBtns.forEach(b => b.disabled = false);
+      }
     } else {
       btn.classList.remove('logged-in');
       const existingImg = btn.querySelector('.github-user-avatar');
@@ -1637,8 +1743,10 @@
       label.textContent = 'Sign in with GitHub';
       btn.title = 'Sign in with GitHub to get automatic repo access';
 
-      // Disable purchase buttons
-      purchaseBtns.forEach(b => b.disabled = true);
+      // Disable all purchase buttons
+      individualBtns.forEach(b => b.disabled = true);
+      teamBtns.forEach(b => b.disabled = true);
+      universalBtns.forEach(b => b.disabled = true);
     }
   }
 
