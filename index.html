@@ -1687,8 +1687,9 @@
             unlockScroll();
             showSuccessMessage(
               event.data?.customData?.product || 'product',
-              event.data?.customData?.licenseType || 'license'
+              event.data?.customData?.licenseType || 'universal'
             );
+
           }
           if (event && event.name === 'checkout.closed') {
             unlockScroll();
