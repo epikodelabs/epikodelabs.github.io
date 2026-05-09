@@ -1524,7 +1524,8 @@
   // 6. We read the query params, save to localStorage, and clean up the URL
   // Firebase Cloud Functions URL (deployed from functions/index.js → exports.api)
   // The function name "api" is the entry point, Express routes are mounted under /api
-  // So full path for auth: .../api/auth/github (not /api/api/auth/github)
+  // So full path for auth: .../api/api/auth/github (LICENSE_SERVER_URL + /api/auth/github)
+  // Callback URL registered in GitHub: https://us-central1-license-server-12e73.cloudfunctions.net/api/api/auth/github/callback
   const LICENSE_SERVER_URL = 'https://us-central1-license-server-12e73.cloudfunctions.net/api';
 
   // Check for OAuth callback on page load
@@ -1589,7 +1590,8 @@
 
     // Redirect to license-server which handles the full OAuth flow
     // The license-server will redirect to GitHub, then back to us with query params
-    window.location.href = LICENSE_SERVER_URL + '/auth/github';
+    // Note: Express routes are mounted at /api/auth, so the full path is /api/auth/github
+    window.location.href = LICENSE_SERVER_URL + '/api/auth/github';
   }
 
   function updateGitHubUI(user) {
