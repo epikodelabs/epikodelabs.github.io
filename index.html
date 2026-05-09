@@ -345,7 +345,7 @@
       color: var(--muted);
     }
     .price-badge {
-      margin-top: 1rem;
+      margin-top: 1at rem;
       margin-bottom: 0.5rem;
       font-weight: 500;
       background: var(--blob-a);
@@ -1521,12 +1521,45 @@
   // 4. Copy the Client ID and paste it below
   const GITHUB_CLIENT_ID = 'Ov23li2NPCCmIZvNuop2'; // ← your GitHub OAuth App client ID
 
-  // GitHub OAuth — uses Device Flow (no backend needed, works on static sites)
-  // GitHub's OAuth doesn't support implicit grant (response_type=token) for browser apps.
-  // Device Flow lets users authorize on github.com without a redirect URI.
+  // GitHub OAuth — uses full-page redirect flow
+  // GitHub's OAuth endpoints don't support CORS from browsers, so we:
+  // 1. Redirect the whole page to GitHub for authorization
+  // 2. GitHub redirects back with ?code=xxx
+  // 3. We exchange the code for a token using a free CORS proxy
+  // 4. We fetch the user info and save to localStorage
+  // 5. We clean up the URL (remove ?code=) so the page looks clean
+
+  // Free CORS proxy for exchanging the OAuth code (no API key needed)
+  const CORS_PROXY = 'https://corsproxy.io/?';
 
   // Check for existing session on page load
   (function checkGitHubAuth() {
+    // First, check if we were redirected back from GitHub with a code
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const returnedState = urlParams.get('state');
+
+    if (code) {
+      // We were redirected back from GitHub — exchange the code
+      const savedState = sessionStorage.getItem('epiko-oauth-state');
+      sessionStorage.removeItem('epiko-oauth-state');
+
+      // Clean up the URL (remove ?code= and ?state=)
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+
+      if (returnedState && savedState && returnedState !== savedState) {
+        console.error('[GitHub Auth] State mismatch — possible CSRF');
+        alert('GitHub sign-in failed. Please try again.');
+        return;
+      }
+
+      // Exchange the code for a token
+      exchangeCodeForToken(code);
+      return;
+    }
+
+    // Check for existing session
     const saved = localStorage.getItem('epiko-github');
     if (saved) {
       try {
@@ -1547,14 +1580,25 @@
       return;
     }
 
-    // Start GitHub Device Flow
-    startDeviceFlow();
+    // Redirect to GitHub for authorization
+    const redirectUri = window.location.origin + window.location.pathname;
+    const scope = 'read:user';
+    const state = Math.random().toString(36).substring(2, 15);
+    // Store state for verification
+    sessionStorage.setItem('epiko-oauth-state', state);
+
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}`;
+
+    // Redirect the whole page to GitHub
+    window.location.href = authUrl;
   }
 
-  async function startDeviceFlow() {
+  async function exchangeCodeForToken(code) {
     try {
-      // Step 1: Request device code from GitHub
-      const deviceRes = await fetch('https://github.com/login/device/code', {
+      // Use a CORS proxy to exchange the code for a token
+      // GitHub's /login/oauth/access_token doesn't support CORS from browsers
+      const proxyUrl = CORS_PROXY + encodeURIComponent('https://github.com/login/oauth/access_token');
+      const response = await fetch(proxyUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1562,95 +1606,29 @@
         },
         body: JSON.stringify({
           client_id: GITHUB_CLIENT_ID,
-          scope: 'read:user'
+          client_secret: '',  // No client secret for public OAuth apps
+          code: code,
+          redirect_uri: window.location.origin + window.location.pathname
         })
       });
 
-      if (!deviceRes.ok) {
-        throw new Error(`Device code request failed: ${deviceRes.status}`);
+      if (!response.ok) {
+        throw new Error(`Token exchange failed: ${response.status}`);
       }
 
-      const deviceData = await deviceRes.json();
-      const { device_code, user_code, verification_uri, interval } = deviceData;
+      const data = await response.json();
 
-      // Step 2: Show the user the code and ask them to visit GitHub
-      const userConfirmed = confirm(
-        `GitHub Authorization Required\n\n` +
-        `1. Copy this code: ${user_code}\n` +
-        `2. Click OK to open GitHub\n` +
-        `3. Paste the code on GitHub and authorize\n` +
-        `4. Come back to this page\n\n` +
-        `Your code: ${user_code}`
-      );
-
-      if (!userConfirmed) {
-        return; // User cancelled
-      }
-
-      // Open GitHub authorization page
-      window.open(verification_uri, '_blank');
-
-      // Step 3: Poll for the access token
-      const pollToken = await pollForAccessToken(device_code, interval);
-      if (pollToken) {
-        await fetchGitHubUser(pollToken);
+      if (data.access_token) {
+        await fetchGitHubUser(data.access_token);
+      } else if (data.error === 'incorrect_client_credentials') {
+        throw new Error('OAuth app requires client_secret. Create a new OAuth app without a client secret, or use a server-side proxy.');
+      } else {
+        throw new Error(`Token exchange error: ${data.error_description || data.error}`);
       }
     } catch (e) {
-      console.error('[GitHub Auth] Device flow error:', e);
-      alert('GitHub sign-in failed. Please try again.');
+      console.error('[GitHub Auth] Token exchange error:', e);
+      alert('GitHub sign-in failed. Please try again.\n\n' + e.message);
     }
-  }
-
-  async function pollForAccessToken(deviceCode, interval) {
-    const maxAttempts = 30; // Give up after ~2-3 minutes
-    let attempts = 0;
-
-    while (attempts < maxAttempts) {
-      attempts++;
-      await new Promise(resolve => setTimeout(resolve, interval * 1000));
-
-      try {
-        const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            client_id: GITHUB_CLIENT_ID,
-            device_code: deviceCode,
-            grant_type: 'urn:ietf:params:oauth:grant-type:device_code'
-          })
-        });
-
-        const tokenData = await tokenRes.json();
-
-        if (tokenData.access_token) {
-          return tokenData.access_token;
-        }
-
-        if (tokenData.error === 'authorization_pending') {
-          // User hasn't authorized yet — keep polling
-          continue;
-        }
-
-        if (tokenData.error === 'slow_down') {
-          // GitHub asks us to slow down — wait extra
-          await new Promise(resolve => setTimeout(resolve, 5000));
-          continue;
-        }
-
-        if (tokenData.error === 'expired_token' || tokenData.error === 'access_denied') {
-          // User denied or code expired
-          break;
-        }
-      } catch (e) {
-        console.warn('[GitHub Auth] Poll error:', e);
-        // Continue polling on network errors
-      }
-    }
-
-    return null;
   }
 
   async function fetchGitHubUser(token) {
