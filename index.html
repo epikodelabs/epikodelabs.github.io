@@ -701,7 +701,6 @@
       <button type="button" class="btn license-btn" data-license-type="team" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Team - $30</button>
     </div>
     <span class="license-btn-required">🔑 Sign in with GitHub above to purchase</span>
-    <span class="license-btn-required" style="font-size: 0.6rem; margin-top: 0.25rem;">💡 For Team license, sign in with your company's shared GitHub account</span>
   </div>
   <div class="card actionstack" onclick="window.open('https://epikodelabs.github.io/actionstack', '_blank')">
     <span class="card-tag tag-indigo">library · state management</span>
@@ -1669,15 +1668,11 @@
       }
 
       const user = await response.json();
-      // GitHub API returns type: "User" for personal accounts, "Organization" for org accounts
-      const isOrg = user.type === 'Organization';
       const userData = {
         login: user.login,
         name: user.name || user.login,
         avatar: user.avatar_url,
-        id: user.id,
-        type: user.type,        // "User" or "Organization"
-        isOrganization: isOrg   // true if it's an org/bot account
+        id: user.id
       };
 
       localStorage.setItem('epiko-github', JSON.stringify(userData));
@@ -1692,10 +1687,8 @@
     const btn = document.getElementById('githubAuthBtn');
     const label = document.getElementById('githubAuthLabel');
 
-    // Get all purchase buttons by type
-    const individualBtns = document.querySelectorAll('.license-btn[data-license-type="individual"]');
-    const teamBtns = document.querySelectorAll('.license-btn[data-license-type="team"]');
-    const universalBtns = document.querySelectorAll('.license-btn[data-license-type="universal"]');
+    // Get all purchase buttons
+    const purchaseBtns = document.querySelectorAll('.license-btn');
 
     if (user) {
       btn.classList.add('logged-in');
@@ -1716,18 +1709,8 @@
       label.textContent = user.login;
       btn.title = 'Click to sign out';
 
-      // Enable/disable based on account type
-      if (user.isOrganization) {
-        // Organization account → Team and Universal buttons enabled
-        individualBtns.forEach(b => b.disabled = true);
-        teamBtns.forEach(b => b.disabled = false);
-        universalBtns.forEach(b => b.disabled = false);
-      } else {
-        // Personal account → Individual and Universal buttons enabled
-        individualBtns.forEach(b => b.disabled = false);
-        teamBtns.forEach(b => b.disabled = true);
-        universalBtns.forEach(b => b.disabled = false);
-      }
+      // Enable all purchase buttons
+      purchaseBtns.forEach(b => b.disabled = false);
     } else {
       btn.classList.remove('logged-in');
       const existingImg = btn.querySelector('.github-user-avatar');
@@ -1744,9 +1727,7 @@
       btn.title = 'Sign in with GitHub to get automatic repo access';
 
       // Disable all purchase buttons
-      individualBtns.forEach(b => b.disabled = true);
-      teamBtns.forEach(b => b.disabled = true);
-      universalBtns.forEach(b => b.disabled = true);
+      purchaseBtns.forEach(b => b.disabled = true);
     }
   }
 
@@ -1844,13 +1825,31 @@
     // Get GitHub user info if signed in
     const githubUser = getGitHubUser();
 
+    // Determine which GitHub username to use
+    let githubUsername = githubUser ? githubUser.login : null;
+
+    // For Team licenses, ask for the company's shared GitHub account
+    if (licenseType === 'team') {
+      const teamUser = prompt(
+        'Enter your company\'s shared GitHub username to grant repo access:\n\n' +
+        '(This account will be added as a collaborator to the private repository)'
+      );
+      if (teamUser && teamUser.trim()) {
+        githubUsername = teamUser.trim();
+      } else {
+        // User cancelled or entered nothing — abort
+        unlockScroll();
+        return;
+      }
+    }
+
     Paddle.Checkout.open({
       items: [{ priceId: priceId, quantity: 1 }],
       customData: {
         licenseType: licenseType,
         product: productName,
         legacyProductId: legacyProductId,
-        ...(githubUser ? { githubUsername: githubUser.login } : {})
+        ...(githubUsername ? { githubUsername } : {})
       },
       settings: {
         displayMode: 'overlay',
