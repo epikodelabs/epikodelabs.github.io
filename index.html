@@ -1523,8 +1523,6 @@
   //    ?token=xxx&expiresIn=7d&uid=github_12345&email=...&name=...&githubLogin=...
   // 6. We read the query params, save to localStorage, and clean up the URL
   // Firebase Cloud Functions URL (deployed from functions/index.js → exports.api)
-  // Format: https://us-central1-{PROJECT_ID}.cloudfunctions.net/{FUNCTION_NAME}
-  // Firebase Cloud Functions URL (deployed from functions/index.js → exports.api)
   // The function name "api" is the entry point, Express routes are mounted under /api
   // So full path for auth: .../api/auth/github (not /api/api/auth/github)
   const LICENSE_SERVER_URL = 'https://us-central1-license-server-12e73.cloudfunctions.net/api';
