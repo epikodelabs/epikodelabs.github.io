@@ -298,6 +298,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.8rem;
+      scroll-margin-top: 80px;
     }
     .card {
       background: var(--surface);
@@ -371,6 +372,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      scroll-margin-top: 80px;
     }
     .grid-2col {
       display: grid;
@@ -652,9 +654,9 @@
   <div class="header-right">
     <nav>
       <a href="#pricing">pricing</a>
-      <a href="#terms">terms</a>
-      <a href="#privacy">privacy</a>
-      <a href="#refund">refund</a>
+      <a href="#legal">terms</a>
+      <a href="#legal">privacy</a>
+      <a href="#legal">refund</a>
       <a href="https://github.com/epikodelabs" target="_blank" rel="noopener noreferrer">github ↗</a>
     </nav>
     <button class="github-auth-btn" id="githubAuthBtn" onclick="handleGitHubAuth()">
@@ -685,7 +687,7 @@
   </div>
 </section>
 
-<div class="projects">
+<div id="pricing" class="projects">
   <div class="card streamix" onclick="window.open('https://epikodelabs.github.io/streamix', '_blank')">
     <span class="card-tag tag-teal">library · reactive streams</span>
     <h2>streamix</h2>
@@ -720,7 +722,7 @@
 </div>
 
 <!-- ========== PRICING + LEGAL (integrated) ========== -->
-<div id="pricing" class="legal-pricing-section">
+<div class="legal-pricing-section">
   <!-- Open-Source reminder + AGPL note -->
   <div class="legal-card" style="border-radius: 20px; margin-bottom: 2rem;">
     <h3 style="margin-bottom: 0.25rem;">📖 AGPL‑3.0 remains free</h3>
@@ -728,7 +730,7 @@
   </div>
 
   <!-- TERMS OF SERVICE + PRIVACY + REFUND integrated block -->
-  <div class="section-title" style="margin-top: 1rem;">📄 legal & policies</div>
+  <div id="legal" class="section-title" style="margin-top: 1rem;">📄 legal & policies</div>
   <div class="grid-2col">
     <div class="legal-card">
       <h3 id="terms"><i>📜</i> Terms of Service</h3>
