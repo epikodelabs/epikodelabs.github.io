@@ -1589,7 +1589,7 @@
 
     // Redirect to license-server which handles the full OAuth flow
     // The license-server will redirect to GitHub, then back to us with query params
-    window.location.href = LICENSE_SERVER_URL + '/api/auth/github';
+    window.location.href = LICENSE_SERVER_URL + '/auth/github';
   }
 
   function updateGitHubUI(user) {
