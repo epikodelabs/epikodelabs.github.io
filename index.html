@@ -1542,8 +1542,11 @@
       // User denied authorization or another error occurred — clean up URL
       const cleanUrl = window.location.origin + window.location.pathname;
       window.history.replaceState({}, document.title, cleanUrl);
+      // Show error to user
+      alert('GitHub sign-in failed: ' + decodeURIComponent(error));
       return;
     }
+
 
     if (token && githubLogin) {
       // We were redirected back from the license-server OAuth callback
