@@ -1514,61 +1514,50 @@
   //  GITHUB AUTHENTICATION
   // ══════════════════════════════════════════════════════════════
 
-  // GitHub OAuth App credentials
-  // 1. Go to: https://github.com/settings/developers → "OAuth Apps" → "New OAuth App"
-  // 2. Homepage URL: https://epikodelabs.github.io
-  // 3. Authorization callback URL: https://license-server-12e73.firebaseapp.com/__/auth/handler
-  // 4. Copy the Client ID and paste it below
-  const GITHUB_CLIENT_ID = 'Ov23li5dAlZPEiVgN9Y0'; // ← your GitHub OAuth App client ID
+  // License Server — handles GitHub OAuth flow server-side
+  // 1. Frontend redirects to license-server's /api/auth/github
+  // 2. License-server redirects to GitHub OAuth authorization page
+  // 3. GitHub redirects back to license-server's /api/auth/github/callback
+  // 4. License-server exchanges code for token, creates Firebase user, generates JWT
+  // 5. License-server redirects back to this page with query params:
+  //    ?token=xxx&expiresIn=7d&uid=github_12345&email=...&name=...&githubLogin=...
+  // 6. We read the query params, save to localStorage, and clean up the URL
+  const LICENSE_SERVER_URL = 'https://license-server-12e73.firebaseapp.com';
 
-  // Firebase License Server — handles GitHub OAuth callback and token exchange
-  const FIREBASE_AUTH_HANDLER = 'https://license-server-12e73.firebaseapp.com/__/auth/handler';
-
-  // GitHub OAuth — uses full-page redirect flow
-  // 1. Redirect the whole page to GitHub for authorization
-  // 2. GitHub redirects to the Firebase License Server auth handler with ?code=xxx
-  // 3. Firebase License Server exchanges the code for a token
-  // 4. Firebase License Server redirects back to epikodelabs.github.io with auth result
-  // 5. We read the auth result from the URL and save to localStorage
-  // 6. We clean up the URL so the page looks clean
-
-  // Check for existing session on page load
+  // Check for OAuth callback on page load
   (function checkGitHubAuth() {
-    // Check if we were redirected back from Firebase Auth handler
-    // Firebase Auth handler redirects back with auth data in the URL hash fragment
-    const hash = window.location.hash;
     const urlParams = new URLSearchParams(window.location.search);
-    const firebaseError = urlParams.get('error');
+    const error = urlParams.get('error');
+    const token = urlParams.get('token');
+    const githubLogin = urlParams.get('githubLogin');
+    const name = urlParams.get('name');
+    const email = urlParams.get('email');
+    const uid = urlParams.get('uid');
 
-    if (firebaseError === 'access_denied') {
-      // User denied authorization — clean up URL and do nothing
+    if (error) {
+      // User denied authorization or another error occurred — clean up URL
       const cleanUrl = window.location.origin + window.location.pathname;
       window.history.replaceState({}, document.title, cleanUrl);
       return;
     }
 
-    // Check for Firebase Auth callback in hash fragment
-    // Firebase Auth handler redirects back with #access_token=... or #provider=...&user=...
-    if (hash && hash.length > 1) {
-      const hashParams = new URLSearchParams(hash.substring(1));
-      const firebaseUser = hashParams.get('user');
+    if (token && githubLogin) {
+      // We were redirected back from the license-server OAuth callback
+      // Clean up the URL (remove query params)
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
 
-      if (firebaseUser) {
-        // Clean up the URL (remove hash and query params)
-        const cleanUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, cleanUrl);
-
-        try {
-          const user = JSON.parse(decodeURIComponent(firebaseUser));
-          if (user && user.login) {
-            localStorage.setItem('epiko-github', JSON.stringify(user));
-            updateGitHubUI(user);
-          }
-        } catch (e) {
-          console.error('[GitHub Auth] Failed to parse user data from Firebase callback:', e);
-        }
-        return;
-      }
+      // Store user data in localStorage
+      const user = {
+        login: githubLogin,
+        name: name || githubLogin,
+        email: email || '',
+        uid: uid || '',
+        token: token,
+      };
+      localStorage.setItem('epiko-github', JSON.stringify(user));
+      updateGitHubUI(user);
+      return;
     }
 
     // Check for existing session in localStorage
@@ -1595,19 +1584,9 @@
       return;
     }
 
-    // Redirect to GitHub for authorization
-    // The redirect_uri points to Firebase License Server auth handler
-    // which will process the OAuth callback and redirect back to this page
-    const redirectUri = FIREBASE_AUTH_HANDLER;
-    const scope = 'read:user';
-    const state = Math.random().toString(36).substring(2, 15);
-    // Store state for verification
-    sessionStorage.setItem('epiko-oauth-state', state);
-
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}`;
-
-    // Redirect the whole page to GitHub
-    window.location.href = authUrl;
+    // Redirect to license-server which handles the full OAuth flow
+    // The license-server will redirect to GitHub, then back to us with query params
+    window.location.href = LICENSE_SERVER_URL + '/api/auth/github';
   }
 
   function updateGitHubUI(user) {
@@ -1628,7 +1607,8 @@
 
       const img = document.createElement('img');
       img.className = 'github-user-avatar';
-      img.src = user.avatar;
+      // Use GitHub's avatar URL based on login (no avatar_url from server, so construct it)
+      img.src = `https://github.com/${user.login}.png?size=40`;
       img.alt = user.login;
       img.title = `Signed in as ${user.login}`;
       btn.insertBefore(img, label);
