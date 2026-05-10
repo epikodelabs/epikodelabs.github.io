@@ -297,64 +297,234 @@
       padding: 1rem 2rem 2.5rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.8rem;
+      gap: 2rem;
       scroll-margin-top: 80px;
     }
+    /* ── Improved Product Cards ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 1.8rem;
+      border-radius: 24px;
+      padding: 2rem;
       text-decoration: none;
       color: inherit;
       position: relative;
-      transition: all 0.25s;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: var(--card-shadow);
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-    .card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
-    .card.streamix:hover { border-color: var(--accent-a); }
-    .card.actionstack:hover { border-color: var(--accent-b); }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+    .card.streamix::before { background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
+    .card.actionstack::before { background: linear-gradient(90deg, var(--accent-b), var(--accent-c)); }
+    .card:hover::before { opacity: 1; }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: var(--card-shadow), 0 20px 60px rgba(0,0,0,0.08);
+    }
+    .card.streamix:hover { border-color: rgba(94, 234, 212, 0.3); }
+    .card.actionstack:hover { border-color: rgba(129, 140, 248, 0.3); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .streamix .card-icon {
+      background: var(--tag-teal-bg);
+      color: var(--accent-a);
+    }
+    .actionstack .card-icon {
+      background: var(--tag-ind-bg);
+      color: var(--accent-b);
+    }
+    .card-icon svg { width: 20px; height: 20px; }
+    .card:hover .card-icon {
+      transform: scale(1.08) rotate(-2deg);
+    }
+
     .card-tag {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      padding: 0.25rem 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.75rem;
       border-radius: 30px;
       display: inline-block;
-      margin-bottom: 1rem;
+      font-weight: 500;
     }
     .tag-teal { background: var(--tag-teal-bg); color: var(--accent-a); }
     .tag-indigo { background: var(--tag-ind-bg); color: var(--accent-b); }
+
     .card h2 {
       font-family: 'Geist', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 800;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
     }
+    .card h2 a {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .card h2 a:hover { color: var(--accent-a); }
+    .card h2 a .arrow {
+      font-size: 0.85em;
+      opacity: 0.5;
+      transition: all 0.2s;
+    }
+    .card h2 a:hover .arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
     .card-desc {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--muted);
-      line-height: 1.6;
-      margin: 0.75rem 0 1.2rem;
+      line-height: 1.7;
+      margin: 0 0 1.25rem;
     }
-    .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+    .badge-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
     .badge {
       font-size: 0.68rem;
-      padding: 0.2rem 0.6rem;
+      padding: 0.25rem 0.7rem;
       border: 1px solid var(--border);
       border-radius: 30px;
       color: var(--muted);
+      background: transparent;
+      transition: all 0.2s;
     }
-    .price-badge {
-      margin-top: 1at rem;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-      background: var(--blob-a);
-      padding: 0.35rem 0.9rem;
-      border-radius: 40px;
-      display: inline-block;
-      font-size: 0.75rem;
-      border-left: 2px solid var(--accent-a);
+    .card:hover .badge {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0.5rem 0 1.25rem;
+      opacity: 0.6;
+    }
+
+    .license-section {
+      margin-top: auto;
+    }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.15rem;
+    }
+    .price-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .price-value {
+      font-family: 'Geist', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .price-sep {
+      color: var(--muted);
+      font-weight: 400;
+      margin: 0 0.15rem;
+    }
+    .price-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .license-buttons {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .license-btn {
+      font-size: 0.72rem;
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Geist Mono', monospace;
+      flex: 1;
+      min-width: 120px;
+    }
+    .license-btn:hover {
+      background: var(--border);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+    .license-btn.primary {
+      border-color: var(--accent-a);
+      background: var(--tag-teal-bg);
+      color: var(--accent-a);
+    }
+    .license-btn.primary:hover {
+      background: var(--accent-a);
+      color: var(--bg);
+      border-color: var(--accent-a);
+    }
+    .license-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+    }
+    .license-btn-required {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+      opacity: 0.7;
+    }
+    .license-btn-required a {
+      color: var(--accent-a);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--accent-a);
+      transition: all 0.2s;
+    }
+    .license-btn-required a:hover {
+      border-bottom-style: solid;
+      opacity: 1;
     }
 
     /* pricing sections + legal cards */
@@ -688,38 +858,74 @@
 </section>
 
 <div id="pricing" class="projects">
-  <div class="card streamix" onclick="window.open('https://epikodelabs.github.io/streamix', '_blank')">
-    <span class="card-tag tag-teal">library · reactive streams</span>
-    <h2>streamix</h2>
-    <p class="card-desc">Async generator-based streams — lightweight, pull-based, familiar RxJS-like operators. Zero-overhead backpressure, tiny footprint.</p>
+  <!-- Streamix Card -->
+  <div class="card streamix">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12h2l2-5 4 10 4-10 4 10 2-5h2"/>
+        </svg>
+      </div>
+      <span class="card-tag tag-teal">library · reactive streams</span>
+    </div>
+    <h2><a href="https://epikodelabs.github.io/streamix" target="_blank" rel="noopener noreferrer">streamix <span class="arrow">↗</span></a></h2>
+    <p class="card-desc">Async generator-based streams — lightweight, pull-based, with familiar RxJS-like operators. Zero-overhead backpressure, tiny footprint.</p>
     <div class="badge-row">
       <span class="badge">async generators</span>
       <span class="badge">pull-based</span>
       <span class="badge">AGPL-3.0</span>
     </div>
-    <div class="price-badge">✨ commercial license: $25 (individual) / $30 (team) — one-time</div>
-    <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-      <button type="button" class="btn license-btn" data-license-type="individual" onclick="purchaseLicense(event, 'streamix', 'individual', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Individual - $25</button>
-      <button type="button" class="btn license-btn" data-license-type="team" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Buy Team - $30</button>
+    <div class="card-divider"></div>
+    <div class="license-section">
+      <div class="price-row">
+        <span class="price-label">Commercial License</span>
+        <span class="price-value">$25 <span class="price-sep">/</span> $30</span>
+      </div>
+      <p class="price-note">Individual · Team — one-time payment</p>
+      <div class="license-buttons">
+        <button type="button" class="btn license-btn primary" data-license-type="individual" onclick="purchaseLicense(event, 'streamix', 'individual', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Individual — $25</button>
+        <button type="button" class="btn license-btn" data-license-type="team" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Team — $30</button>
+      </div>
+      <span class="license-btn-required">🔑 <a href="#" onclick="handleGitHubAuth(); return false;">Sign in with GitHub</a> to purchase</span>
     </div>
-    <span class="license-btn-required">🔑 Sign in with GitHub above to purchase</span>
-  </div>
-  <div class="card actionstack" onclick="window.open('https://epikodelabs.github.io/actionstack', '_blank')">
-    <span class="card-tag tag-indigo">library · state management</span>
-    <h2>actionstack</h2>
-    <p class="card-desc">Next-gen state management on streamix. Modular actions, no reducers, reactive and scalable for modern TypeScript apps.</p>
+      </div>
+
+
+  <!-- Actionstack Card -->
+  <div class="card actionstack">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+      </div>
+      <span class="card-tag tag-indigo">library · state management</span>
+    </div>
+    <h2><a href="https://epikodelabs.github.io/actionstack" target="_blank" rel="noopener noreferrer">actionstack <span class="arrow">↗</span></a></h2>
+    <p class="card-desc">Next-gen state management built on streamix. Modular actions, no reducers, reactive and scalable for modern TypeScript apps.</p>
     <div class="badge-row">
       <span class="badge">modular state</span>
       <span class="badge">reactive core</span>
       <span class="badge">AGPL-3.0</span>
     </div>
-    <div class="price-badge">🚀 commercial license: $10 (individual & team) — one-time</div>
-    <div class="license-buttons" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-      <button type="button" class="btn license-btn" data-license-type="universal" onclick="purchaseLicense(event, 'actionstack', 'universal', 'pro_01kr3tsfwt86qj89mxsgxkx23g')" disabled>Buy License - $10</button>
+    <div class="card-divider"></div>
+    <div class="license-section">
+      <div class="price-row">
+        <span class="price-label">Commercial License</span>
+        <span class="price-value">$10</span>
+      </div>
+      <p class="price-note">Individual & Team — one-time payment</p>
+      <div class="license-buttons">
+        <button type="button" class="btn license-btn primary" data-license-type="universal" onclick="purchaseLicense(event, 'actionstack', 'universal', 'pro_01kr3tsfwt86qj89mxsgxkx23g')" disabled>Buy License — $10</button>
+      </div>
+      <span class="license-btn-required">🔑 <a href="#githubAuthBtn">Sign in with GitHub</a> to purchase</span>
     </div>
-    <span class="license-btn-required">🔑 Sign in with GitHub above to purchase</span>
   </div>
 </div>
+
 
 <!-- ========== PRICING + LEGAL (integrated) ========== -->
 <div class="legal-pricing-section">
