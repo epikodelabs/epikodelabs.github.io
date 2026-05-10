@@ -1812,6 +1812,8 @@
 
     // Get all purchase buttons
     const purchaseBtns = document.querySelectorAll('.license-btn');
+    // Get all "sign in to purchase" hints
+    const signInHints = document.querySelectorAll('.license-btn-required');
 
     if (user) {
       btn.classList.add('logged-in');
@@ -1835,6 +1837,8 @@
 
       // Enable all purchase buttons
       purchaseBtns.forEach(b => b.disabled = false);
+      // Hide "sign in to purchase" hints
+      signInHints.forEach(h => h.style.display = 'none');
     } else {
       btn.classList.remove('logged-in');
       const existingImg = btn.querySelector('.github-user-avatar');
@@ -1852,8 +1856,11 @@
 
       // Disable all purchase buttons
       purchaseBtns.forEach(b => b.disabled = true);
+      // Show "sign in to purchase" hints
+      signInHints.forEach(h => h.style.display = '');
     }
   }
+
 
   function getGitHubUser() {
     const saved = localStorage.getItem('epiko-github');
