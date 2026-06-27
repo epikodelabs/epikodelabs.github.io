@@ -45,6 +45,5 @@ Open `index.html` directly in a browser to preview the page. The GitHub OAuth fl
 
 ## Related
 
-- [License server](../license-server/) — handles GitHub OAuth, JWT tokens, and repo access provisioning.
 - [Streamix docs](https://epikodelabs.github.io/streamix) — public documentation.
 - [Actionstack docs](https://epikodelabs.github.io/actionstack) — public documentation.
