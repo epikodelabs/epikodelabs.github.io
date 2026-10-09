@@ -1,7 +1,7 @@
 # epikodelabs.github.io
 
 > [!IMPORTANT]
-> **This repository contains the source code for the EpikodeLabs website and GitHub Pages deployment.**
+> **This repository contains the source code for the EPIKODELABS website and GitHub Pages deployment.**
 >
 > It is **not** the source repository for Streamix, Actionstack, or any other EpikodeLabs project.
 
@@ -13,9 +13,9 @@ The contents of this repository are published at:
 
 For source code, issues, documentation, and contributions, use the corresponding project repository:
 
-* **Streamix** — https://github.com/epikodelabs/streamix-community
-* **Actionstack** — https://github.com/epikodelabs/actionstack-community
-* **Community discussions** — https://github.com/epikodelabs/streamix-community/discussions
+* **Streamix** — https://github.com/epikodelabs/streamix
+* **Actionstack** — https://github.com/epikodelabs/actionstack
+* **Community discussions** — https://github.com/epikodelabs/streamix/discussions
 
 ## What belongs here
 

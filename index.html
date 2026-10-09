@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>epikodelabs — reactive libraries & license pricing</title>
-  <meta name="description" content="Open-source libraries for reactive applications. Streamix, Actionstack, and commercial licenses for teams & individuals." />
+  <title>epikodelabs — free MIT-licensed reactive libraries</title>
+  <meta name="description" content="Free, MIT-licensed libraries for reactive applications. Streamix and Actionstack." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -837,16 +837,11 @@
   </a>
   <div class="header-right">
     <nav>
-      <a href="#pricing">pricing</a>
+      <a href="#projects">libraries</a>
       <a href="#legal">terms</a>
       <a href="#legal">privacy</a>
-      <a href="#legal">refund</a>
       <a href="https://github.com/epikodelabs" target="_blank" rel="noopener noreferrer">github ↗</a>
     </nav>
-    <button class="github-auth-btn" id="githubAuthBtn" onclick="handleGitHubAuth()">
-      <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      <span id="githubAuthLabel">Sign in with GitHub</span>
-    </button>
     <div class="theme-toggle" role="group">
       <button class="theme-btn" data-mode="light" title="Light">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -862,16 +857,16 @@
 </header>
 
 <section class="hero">
-  <span class="eyebrow">open-source · commercial licensing · full source access · tests included</span>
-  <h1><em>reactive apps</em><br />that scale, now<br />with enterprise options</h1>
-  <p><b>streamix</b> + <b>actionstack</b>: pull-based streams and modular state management. Use them under AGPL-3.0, or purchase a commercial license with access to a private repository containing the full source code, tests, examples, and proprietary usage rights.</p>
+  <span class="eyebrow">open-source · MIT licensed · fully free · source &amp; tests included</span>
+  <h1><em>reactive apps</em><br />that scale, free<br />for everyone</h1>
+  <p><b>streamix</b> + <b>actionstack</b>: pull-based streams and modular state management, released under the MIT License. Use, modify, and distribute them freely.</p>
   <div class="hero-links">
-    <a class="btn" href="#pricing">↓ view licensing & pricing</a>
+    <a class="btn" href="#projects">↓ explore the libraries</a>
     <a class="btn" href="https://github.com/epikodelabs" target="_blank" rel="noopener noreferrer">↗ GitHub org</a>
   </div>
 </section>
 
-<div id="pricing" class="projects">
+<div id="projects" class="projects">
   <!-- Streamix Card -->
   <div class="card streamix">
     <div class="card-header">
@@ -887,20 +882,13 @@
     <div class="badge-row">
       <span class="badge">async generators</span>
       <span class="badge">pull-based</span>
-      <span class="badge">AGPL-3.0</span>
+      <span class="badge">MIT License</span>
     </div>
     <div class="card-divider"></div>
     <div class="license-section">
-      <div class="price-row">
-        <span class="price-label">Commercial License</span>
-        <span class="price-value">$25 <span class="price-sep">/</span> $30</span>
-      </div>
-      <p class="price-note">Individual · Team — one-time payment</p>
-      <div class="license-buttons">
-        <button type="button" class="btn license-btn primary" data-license-type="individual" onclick="purchaseLicense(event, 'streamix', 'individual', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Individual — $25</button>
-        <button type="button" class="btn license-btn" data-license-type="team" onclick="purchaseLicense(event, 'streamix', 'team', 'pro_01kr3tr6a9zgb085wr2hev07e7')" disabled>Team — $30</button>
-      </div>
-      <span class="license-btn-required">🔑 <a href="#" onclick="handleGitHubAuth(); return false;">Sign in with GitHub</a> to purchase</span>
+      <div class="price-row"><span class="price-label">Free &amp; open source</span><span class="price-value">$0</span></div>
+      <p class="price-note">MIT License — free for personal and commercial use</p>
+      <a class="btn license-btn primary" href="https://github.com/epikodelabs/streamix" target="_blank" rel="noopener noreferrer">View source on GitHub</a>
     </div>
       </div>
 
@@ -923,31 +911,25 @@
     <div class="badge-row">
       <span class="badge">modular state</span>
       <span class="badge">reactive core</span>
-      <span class="badge">AGPL-3.0</span>
+      <span class="badge">MIT License</span>
     </div>
     <div class="card-divider"></div>
     <div class="license-section">
-      <div class="price-row">
-        <span class="price-label">Commercial License</span>
-        <span class="price-value">$10</span>
-      </div>
-      <p class="price-note">Individual & Team — one-time payment</p>
-      <div class="license-buttons">
-        <button type="button" class="btn license-btn primary" data-license-type="universal" onclick="purchaseLicense(event, 'actionstack', 'universal', 'pro_01kr3tsfwt86qj89mxsgxkx23g')" disabled>Buy License — $10</button>
-      </div>
-      <span class="license-btn-required">🔑 <a href="#" onclick="handleGitHubAuth(); return false;">Sign in with GitHub</a> to purchase</span>
+      <div class="price-row"><span class="price-label">Free &amp; open source</span><span class="price-value">$0</span></div>
+      <p class="price-note">MIT License — free for personal and commercial use</p>
+      <a class="btn license-btn primary" href="https://github.com/epikodelabs/actionstack" target="_blank" rel="noopener noreferrer">View source on GitHub</a>
     </div>
   </div>
 </div>
 
 
 
-<!-- ========== PRICING + LEGAL (integrated) ========== -->
+<!-- ========== LICENSING + LEGAL ========== -->
 <div class="legal-pricing-section">
-  <!-- Open-Source reminder + AGPL note -->
+  <!-- Open-source licensing note -->
   <div class="legal-card" style="border-radius: 20px; margin-bottom: 2rem;">
-    <h3 style="margin-bottom: 0.25rem;">📖 AGPL‑3.0 remains free</h3>
-    <p>Both libraries are <strong>open source</strong> under AGPL‑3.0. You can use, modify and distribute them at no cost as long as you comply with the AGPL terms (disclose source, same license for network interactions). Commercial licenses remove the AGPL obligation for your proprietary code – ideal for SaaS or internal tools.</p>
+    <h3 style="margin-bottom: 0.25rem;">📖 MIT licensed and free</h3>
+    <p>Both libraries are <strong>open source</strong> under the MIT License. You may use, copy, modify, distribute, sublicense, and sell copies of the software, subject to including the license and copyright notice.</p>
   </div>
 
   <!-- TERMS OF SERVICE + PRIVACY + REFUND integrated block -->
@@ -957,11 +939,9 @@
       <h3 id="terms"><i>📜</i> Terms of Service</h3>
       <p><strong>Effective: May 7, 2026</strong> — Use of epikodelabs docs, repos, packages, and paid services.</p>
       <ul>
-        <li>Open source licensed under AGPL-3.0-only.</li>
-        <li>Paid services governed by separate written agreements.</li>
+        <li>Open source licensed under the MIT License.</li>
         <li>No warranty & limitation of liability as described.</li>
         <li>Acceptable use: no malicious interference or license misrepresentation.</li>
-        <li>If you purchase a commercial license, these terms apply to the website, while license terms override for software usage rights.</li>
       </ul>
       <p style="margin-top: 8px;">🔗 Full ToS available on request / or summarized here. By accessing you agree.</p>
     </div>
@@ -975,32 +955,21 @@
         <li>GDPR/CCPA rights? Contact <span class="contact-email">oleksii.shepel@outlook.com</span></li>
       </ul>
     </div>
-    <div class="legal-card">
-      <h3 id="refund"><i>💸</i> Refund Policy (Paid Licenses)</h3>
-      <p><strong>Commercial licenses (streamix/actionstack):</strong> Because license keys are delivered digitally and grant perpetual rights, <strong>all license purchases are final and non-refundable</strong> unless otherwise required by law. If a technical defect prevents activation, we offer a replacement or refund at our discretion.</p>
-      <ul>
-        <li>✅ Refund requests considered within 7 days if license not used / mis-delivered.</li>
-        <li>❌ No refunds for change of mind or discontinued projects.</li>
-        <li>Paid services (consulting): refund per separate SOW.</li>
-      </ul>
-      <p>Contact <span class="contact-email">oleksii.shepel@outlook.com</span> with invoice number.</p>
-    </div>
   </div>
 
-  <!-- Commercial License FAQ - with extra bottom margin -->
+  <!-- Open-source FAQ -->
   <div class="faq-card">
-    <h3><i>⚙️</i> Commercial License FAQ</h3>
-    <p><strong>Are these prices too small?</strong> We intentionally keep one-time licenses affordable for indie developers and small teams — $25/$30 for streamix and $10 for actionstack is competitive for perpetual rights. It helps sustain open-source development while keeping it accessible. For enterprises with custom needs, contact us for customized agreements.</p>
-    <p><strong>What do I get?</strong> After purchase, your GitHub account will be added to a private licensed repository to gain access to the full source code, tests, examples, and build configuration. You also receive commercial usage rights for proprietary projects without AGPL obligations for your own code.</p>
-    <p><strong>Payment methods:</strong> PayPal / wire / invoice via email.</p>
+    <h3><i>⚙️</i> Open-Source FAQ</h3>
+    <p><strong>What does it cost?</strong> Nothing. Streamix and Actionstack are free to use, including in commercial and proprietary projects.</p>
+    <p><strong>Where is the source?</strong> The full source code, tests, examples, and build configuration are available in the public GitHub repositories.</p>
   </div>
 
   <!-- Additional compliance block (refund / terms details merged) -->
   <div class="legal-card" style="margin-top: 0.5rem;">
     <h3 style="font-size: 1.1rem;">📬 Contact & Inquiries</h3>
-    <p>For questions about commercial licensing, bulk pricing, or custom support: <strong>oleksii.shepel@outlook.com</strong> . We aim to reply within 2 business days.</p>
+    <p>For questions about the libraries or support: <strong>oleksii.shepel@outlook.com</strong> . We aim to reply within 2 business days.</p>
     <div class="hr-light"></div>
-    <p style="font-size: 0.7rem;">© 2026 epikodelabs — All documentation and license policies are effective as of May 7, 2026 and replace previous versions. Open-source contributions are subject to AGPL-3.0. The names “streamix” and “actionstack” are trademarks of epikodelabs.</p>
+    <p style="font-size: 0.7rem;">© 2026 epikodelabs — Streamix and Actionstack are released under the MIT License. The names “streamix” and “actionstack” are trademarks of epikodelabs.</p>
   </div>
 </div>
 
@@ -1032,1008 +1001,13 @@
       const mode = btn.dataset.mode;
       localStorage.setItem(KEY, mode);
       applyMode(mode);
-      // Sync Paddle checkout theme if active
-      if (window.Paddle && paddleReady) {
-        const isLight = mode === 'light' || (mode === 'auto' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
-        try {
-          Paddle.Update({
-            checkout: {
-              settings: {
-                theme: isLight ? 'light' : 'dark'
-              }
-            }
-          });
-        } catch(e) {
-          // Paddle may not support runtime theme updates
-        }
-      }
     });
   });
 
   mql.addEventListener('change', () => {
     if ((localStorage.getItem(KEY) || 'auto') === 'auto') applyMode('auto');
-    // Sync Paddle checkout theme if active
-    if (window.Paddle && paddleReady) {
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      try {
-        Paddle.Update({
-          checkout: {
-            settings: {
-              theme: isLight ? 'light' : 'dark'
-            }
-          }
-        });
-      } catch(e) {
-        // Paddle may not support runtime theme updates
-      }
-    }
   });
 </script>
 
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-
-<!-- Paddle JS Integration -->
-<script>
-    (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.paddle = {}));
-    })(this, (function (exports) { 'use strict';
-
-    function asyncGeneratorStep(n, t, e, r, o, a, c) {
-        try {
-        var i = n[a](c),
-            u = i.value;
-        } catch (n) {
-        return void e(n);
-        }
-        i.done ? t(u) : Promise.resolve(u).then(r, o);
-    }
-    function _asyncToGenerator(n) {
-        return function () {
-        var t = this,
-            e = arguments;
-        return new Promise(function (r, o) {
-            var a = n.apply(t, e);
-            function _next(n) {
-            asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
-            }
-            function _throw(n) {
-            asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
-            }
-            _next(void 0);
-        });
-        };
-    }
-    function _defineProperty(e, r, t) {
-        return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
-        value: t,
-        enumerable: !0,
-        configurable: !0,
-        writable: !0
-        }) : e[r] = t, e;
-    }
-    function ownKeys(e, r) {
-        var t = Object.keys(e);
-        if (Object.getOwnPropertySymbols) {
-        var o = Object.getOwnPropertySymbols(e);
-        r && (o = o.filter(function (r) {
-            return Object.getOwnPropertyDescriptor(e, r).enumerable;
-        })), t.push.apply(t, o);
-        }
-        return t;
-    }
-    function _objectSpread2(e) {
-        for (var r = 1; r < arguments.length; r++) {
-        var t = null != arguments[r] ? arguments[r] : {};
-        r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
-            _defineProperty(e, r, t[r]);
-        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
-            Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
-        });
-        }
-        return e;
-    }
-    function _objectWithoutProperties(e, t) {
-        if (null == e) return {};
-        var o,
-        r,
-        i = _objectWithoutPropertiesLoose(e, t);
-        if (Object.getOwnPropertySymbols) {
-        var s = Object.getOwnPropertySymbols(e);
-        for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
-        }
-        return i;
-    }
-    function _objectWithoutPropertiesLoose(r, e) {
-        if (null == r) return {};
-        var t = {};
-        for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-        if (e.includes(n)) continue;
-        t[n] = r[n];
-        }
-        return t;
-    }
-    function _regeneratorRuntime() {
-        _regeneratorRuntime = function () {
-        return e;
-        };
-        var t,
-        e = {},
-        r = Object.prototype,
-        n = r.hasOwnProperty,
-        o = Object.defineProperty || function (t, e, r) {
-            t[e] = r.value;
-        },
-        i = "function" == typeof Symbol ? Symbol : {},
-        a = i.iterator || "@@iterator",
-        c = i.asyncIterator || "@@asyncIterator",
-        u = i.toStringTag || "@@toStringTag";
-        function define(t, e, r) {
-        return Object.defineProperty(t, e, {
-            value: r,
-            enumerable: !0,
-            configurable: !0,
-            writable: !0
-        }), t[e];
-        }
-        try {
-        define({}, "");
-        } catch (t) {
-        define = function (t, e, r) {
-            return t[e] = r;
-        };
-        }
-        function wrap(t, e, r, n) {
-        var i = e && e.prototype instanceof Generator ? e : Generator,
-            a = Object.create(i.prototype),
-            c = new Context(n || []);
-        return o(a, "_invoke", {
-            value: makeInvokeMethod(t, r, c)
-        }), a;
-        }
-        function tryCatch(t, e, r) {
-        try {
-            return {
-            type: "normal",
-            arg: t.call(e, r)
-            };
-        } catch (t) {
-            return {
-            type: "throw",
-            arg: t
-            };
-        }
-        }
-        e.wrap = wrap;
-        var h = "suspendedStart",
-        l = "suspendedYield",
-        f = "executing",
-        s = "completed",
-        y = {};
-        function Generator() {}
-        function GeneratorFunction() {}
-        function GeneratorFunctionPrototype() {}
-        var p = {};
-        define(p, a, function () {
-        return this;
-        });
-        var d = Object.getPrototypeOf,
-        v = d && d(d(values([])));
-        v && v !== r && n.call(v, a) && (p = v);
-        var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
-        function defineIteratorMethods(t) {
-        ["next", "throw", "return"].forEach(function (e) {
-            define(t, e, function (t) {
-            return this._invoke(e, t);
-            });
-        });
-        }
-        function AsyncIterator(t, e) {
-        function invoke(r, o, i, a) {
-            var c = tryCatch(t[r], t, o);
-            if ("throw" !== c.type) {
-            var u = c.arg,
-                h = u.value;
-            return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
-                invoke("next", t, i, a);
-            }, function (t) {
-                invoke("throw", t, i, a);
-            }) : e.resolve(h).then(function (t) {
-                u.value = t, i(u);
-            }, function (t) {
-                return invoke("throw", t, i, a);
-            });
-            }
-            a(c.arg);
-        }
-        var r;
-        o(this, "_invoke", {
-            value: function (t, n) {
-            function callInvokeWithMethodAndArg() {
-                return new e(function (e, r) {
-                invoke(t, n, e, r);
-                });
-            }
-            return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
-            }
-        });
-        }
-        function makeInvokeMethod(e, r, n) {
-        var o = h;
-        return function (i, a) {
-            if (o === f) throw Error("Generator is already running");
-            if (o === s) {
-            if ("throw" === i) throw a;
-            return {
-                value: t,
-                done: !0
-            };
-            }
-            for (n.method = i, n.arg = a;;) {
-            var c = n.delegate;
-            if (c) {
-                var u = maybeInvokeDelegate(c, n);
-                if (u) {
-                if (u === y) continue;
-                return u;
-                }
-            }
-            if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
-                if (o === h) throw o = s, n.arg;
-                n.dispatchException(n.arg);
-            } else "return" === n.method && n.abrupt("return", n.arg);
-            o = f;
-            var p = tryCatch(e, r, n);
-            if ("normal" === p.type) {
-                if (o = n.done ? s : l, p.arg === y) continue;
-                return {
-                value: p.arg,
-                done: n.done
-                };
-            }
-            "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
-            }
-        };
-        }
-        function maybeInvokeDelegate(e, r) {
-        var n = r.method,
-            o = e.iterator[n];
-        if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
-        var i = tryCatch(o, e.iterator, r.arg);
-        if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
-        var a = i.arg;
-        return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
-        }
-        function pushTryEntry(t) {
-        var e = {
-            tryLoc: t[0]
-        };
-        1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
-        }
-        function resetTryEntry(t) {
-        var e = t.completion || {};
-        e.type = "normal", delete e.arg, t.completion = e;
-        }
-        function Context(t) {
-        this.tryEntries = [{
-            tryLoc: "root"
-        }], t.forEach(pushTryEntry, this), this.reset(!0);
-        }
-        function values(e) {
-        if (e || "" === e) {
-            var r = e[a];
-            if (r) return r.call(e);
-            if ("function" == typeof e.next) return e;
-            if (!isNaN(e.length)) {
-            var o = -1,
-                i = function next() {
-                for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
-                return next.value = t, next.done = !0, next;
-                };
-            return i.next = i;
-            }
-        }
-        throw new TypeError(typeof e + " is not iterable");
-        }
-        return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
-        value: GeneratorFunctionPrototype,
-        configurable: !0
-        }), o(GeneratorFunctionPrototype, "constructor", {
-        value: GeneratorFunction,
-        configurable: !0
-        }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
-        var e = "function" == typeof t && t.constructor;
-        return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
-        }, e.mark = function (t) {
-        return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
-        }, e.awrap = function (t) {
-        return {
-            __await: t
-        };
-        }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
-        return this;
-        }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
-        void 0 === i && (i = Promise);
-        var a = new AsyncIterator(wrap(t, r, n, o), i);
-        return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
-            return t.done ? t.value : a.next();
-        });
-        }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
-        return this;
-        }), define(g, "toString", function () {
-        return "[object Generator]";
-        }), e.keys = function (t) {
-        var e = Object(t),
-            r = [];
-        for (var n in e) r.push(n);
-        return r.reverse(), function next() {
-            for (; r.length;) {
-            var t = r.pop();
-            if (t in e) return next.value = t, next.done = !1, next;
-            }
-            return next.done = !0, next;
-        };
-        }, e.values = values, Context.prototype = {
-        constructor: Context,
-        reset: function (e) {
-            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
-        },
-        stop: function () {
-            this.done = !0;
-            var t = this.tryEntries[0].completion;
-            if ("throw" === t.type) throw t.arg;
-            return this.rval;
-        },
-        dispatchException: function (e) {
-            if (this.done) throw e;
-            var r = this;
-            function handle(n, o) {
-            return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
-            }
-            for (var o = this.tryEntries.length - 1; o >= 0; --o) {
-            var i = this.tryEntries[o],
-                a = i.completion;
-            if ("root" === i.tryLoc) return handle("end");
-            if (i.tryLoc <= this.prev) {
-                var c = n.call(i, "catchLoc"),
-                u = n.call(i, "finallyLoc");
-                if (c && u) {
-                if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
-                if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
-                } else if (c) {
-                if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
-                } else {
-                if (!u) throw Error("try statement without catch or finally");
-                if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
-                }
-            }
-            }
-        },
-        abrupt: function (t, e) {
-            for (var r = this.tryEntries.length - 1; r >= 0; --r) {
-            var o = this.tryEntries[r];
-            if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
-                var i = o;
-                break;
-            }
-            }
-            i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
-            var a = i ? i.completion : {};
-            return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
-        },
-        complete: function (t, e) {
-            if ("throw" === t.type) throw t.arg;
-            return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
-        },
-        finish: function (t) {
-            for (var e = this.tryEntries.length - 1; e >= 0; --e) {
-            var r = this.tryEntries[e];
-            if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
-            }
-        },
-        catch: function (t) {
-            for (var e = this.tryEntries.length - 1; e >= 0; --e) {
-            var r = this.tryEntries[e];
-            if (r.tryLoc === t) {
-                var n = r.completion;
-                if ("throw" === n.type) {
-                var o = n.arg;
-                resetTryEntry(r);
-                }
-                return o;
-            }
-            }
-            throw Error("illegal catch attempt");
-        },
-        delegateYield: function (e, r, n) {
-            return this.delegate = {
-            iterator: values(e),
-            resultName: r,
-            nextLoc: n
-            }, "next" === this.method && (this.arg = t), y;
-        }
-        }, e;
-    }
-    function _toPrimitive(t, r) {
-        if ("object" != typeof t || !t) return t;
-        var e = t[Symbol.toPrimitive];
-        if (void 0 !== e) {
-        var i = e.call(t, r || "default");
-        if ("object" != typeof i) return i;
-        throw new TypeError("@@toPrimitive must return a primitive value.");
-        }
-        return ("string" === r ? String : Number)(t);
-    }
-    function _toPropertyKey(t) {
-        var i = _toPrimitive(t, "string");
-        return "symbol" == typeof i ? i : i + "";
-    }
-
-    var Versions = {
-        CLASSIC: 'classic',
-        V1: 'v1'
-    };
-    var DefaultVersion = Versions.V1;
-    var PaddleClassicCDNUrl = 'https://cdn.paddle.com/paddle/paddle.js';
-    var PaddleBillingCDNUrl = 'https://cdn.paddle.com/paddle/v2/paddle.js';
-    var PaddleClassicInfo = {
-        url: PaddleClassicCDNUrl
-    };
-    var PaddleBillingV1Info = {
-        url: PaddleBillingCDNUrl
-    };
-
-    function findScript(cdnUrl) {
-        return document.querySelector("script[src=\"".concat(cdnUrl, "\"]")) || undefined;
-    }
-    function injectScript(src) {
-        var script = document.createElement('script');
-        script.src = src;
-        var headOrBody = document.head || document.body;
-        if (!headOrBody) {
-        throw new Error('Cannot inject Paddle.js. It needs a <head> or <body> element.');
-        }
-        headOrBody.appendChild(script);
-        return script;
-    }
-    var promiseMap = {
-        classic: undefined,
-        v1: undefined
-    };
-    var VersionToPaddleMap = {
-        classic: 'PaddleClassic',
-        v1: 'PaddleBillingV1'
-    };
-    function loadFromCDN(version) {
-        var _getCDNInfoBasedOnVer;
-        var cdnUrl = (_getCDNInfoBasedOnVer = getCDNInfoBasedOnVersion(version)) === null || _getCDNInfoBasedOnVer === void 0 ? void 0 : _getCDNInfoBasedOnVer.url;
-        if (!cdnUrl) {
-        return;
-        }
-        // Return promise on re-renders
-        var existingPromise = promiseMap[version];
-        var paddleInstanceName = VersionToPaddleMap[version];
-        if (existingPromise !== undefined) {
-        return existingPromise;
-        }
-        promiseMap[version] = new Promise(function (resolve, reject) {
-        if (typeof window === 'undefined') {
-            // Return undefined in a server side environment
-            resolve(undefined);
-            return;
-        }
-        // Return Paddle instance if it is already initialized
-        if (window[paddleInstanceName]) {
-            resolve(window[paddleInstanceName]);
-            return;
-        }
-        try {
-            // Inject if paddle.js script tag is not found
-            var script = findScript(cdnUrl);
-            if (!script) {
-            script = injectScript(cdnUrl);
-            }
-            // Wait for `load` event before returning
-            script.addEventListener('load', function () {
-            if (window[paddleInstanceName]) {
-                resolve(window[paddleInstanceName]);
-            } else {
-                reject(new Error('Paddle.js not available'));
-            }
-            });
-            // Show an error if loading fails
-            script.addEventListener('error', function () {
-            reject(new Error("Failed to load Paddle.js - ".concat(version)));
-            });
-        } catch (error) {
-            reject(error);
-            return;
-        }
-        });
-        return promiseMap[version];
-    }
-    function getCDNInfoBasedOnVersion(version) {
-        if (version === Versions.CLASSIC) {
-        return PaddleClassicInfo;
-        }
-        if (version === Versions.V1) {
-        return PaddleBillingV1Info;
-        } else {
-        console.error('[Paddle] Unknown Paddle Version');
-        return;
-        }
-    }
-
-    var _excluded = ["environment", "version"],
-        _excluded2 = ["environment", "version"];
-    function initializePaddleBillingV1(options, paddle) {
-        var environment = options.environment;
-        options.version;
-        var rest = _objectWithoutProperties(options, _excluded);
-        try {
-        if (environment) {
-            paddle.Environment.set(environment);
-        }
-        if (paddle.Initialized) {
-            paddle.Update(_objectSpread2({}, rest));
-        } else {
-            paddle.Initialize(_objectSpread2({}, rest));
-        }
-        } catch (e) {
-        console.warn('[Paddle] Paddle Initialization failed. Please check the inputs', e);
-        }
-    }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function initializePaddleClassic(options, paddle) {
-        var environment = options.environment;
-        options.version;
-        var rest = _objectWithoutProperties(options, _excluded2);
-        try {
-        if (environment) {
-            paddle.Environment.set(environment);
-        }
-        paddle.Setup(_objectSpread2({}, rest));
-        } catch (e) {
-        console.warn('[Paddle] Paddle Initialization failed. Please check the inputs', e);
-        }
-    }
-
-    // Note: The enums in this file is only for `src`. Typescript will also need it added to the `types` directory for usage.
-    exports.CheckoutEventNames = void 0;
-    (function (CheckoutEventNames) {
-        CheckoutEventNames["CHECKOUT_LOADED"] = "checkout.loaded";
-        CheckoutEventNames["CHECKOUT_CLOSED"] = "checkout.closed";
-        CheckoutEventNames["CHECKOUT_UPDATED"] = "checkout.updated";
-        CheckoutEventNames["CHECKOUT_COMPLETED"] = "checkout.completed";
-        CheckoutEventNames["CHECKOUT_ERROR"] = "checkout.error";
-        CheckoutEventNames["CHECKOUT_FAILED"] = "checkout.failed";
-        CheckoutEventNames["CHECKOUT_ITEMS_UPDATED"] = "checkout.items.updated";
-        CheckoutEventNames["CHECKOUT_ITEMS_REMOVED"] = "checkout.items.removed";
-        CheckoutEventNames["CHECKOUT_CUSTOMER_CREATED"] = "checkout.customer.created";
-        CheckoutEventNames["CHECKOUT_CUSTOMER_UPDATED"] = "checkout.customer.updated";
-        CheckoutEventNames["CHECKOUT_CUSTOMER_REMOVED"] = "checkout.customer.removed";
-        CheckoutEventNames["CHECKOUT_PAYMENT_SELECTED"] = "checkout.payment.selected";
-        CheckoutEventNames["CHECKOUT_PAYMENT_INITIATED"] = "checkout.payment.initiated";
-        CheckoutEventNames["CHECKOUT_PAYMENT_FAILED"] = "checkout.payment.failed";
-        CheckoutEventNames["CHECKOUT_PAYMENT_ERROR"] = "checkout.payment.error";
-        CheckoutEventNames["CHECKOUT_DISCOUNT_APPLIED"] = "checkout.discount.applied";
-        CheckoutEventNames["CHECKOUT_DISCOUNT_REMOVED"] = "checkout.discount.removed";
-        CheckoutEventNames["CHECKOUT_UPSELL_CANCELED"] = "checkout.upsell.canceled";
-    })(exports.CheckoutEventNames || (exports.CheckoutEventNames = {}));
-    exports.CheckoutEventsTimePeriodInterval = void 0;
-    (function (CheckoutEventsTimePeriodInterval) {
-        CheckoutEventsTimePeriodInterval["DAY"] = "day";
-        CheckoutEventsTimePeriodInterval["WEEK"] = "week";
-        CheckoutEventsTimePeriodInterval["MONTH"] = "month";
-        CheckoutEventsTimePeriodInterval["YEAR"] = "year";
-    })(exports.CheckoutEventsTimePeriodInterval || (exports.CheckoutEventsTimePeriodInterval = {}));
-    exports.CheckoutEventsPaymentMethodTypes = void 0;
-    (function (CheckoutEventsPaymentMethodTypes) {
-        CheckoutEventsPaymentMethodTypes["ALIPAY"] = "alipay";
-        CheckoutEventsPaymentMethodTypes["APPLE_PAY"] = "apple-pay";
-        CheckoutEventsPaymentMethodTypes["CARD"] = "card";
-        CheckoutEventsPaymentMethodTypes["GOOGLE_PAY"] = "google-pay";
-        CheckoutEventsPaymentMethodTypes["IDEAL"] = "ideal";
-        CheckoutEventsPaymentMethodTypes["PAYPAL"] = "paypal";
-        CheckoutEventsPaymentMethodTypes["WECHAT_PAY"] = "wechat-pay";
-        CheckoutEventsPaymentMethodTypes["WIRE_TRANSFER"] = "wire-transfer";
-        CheckoutEventsPaymentMethodTypes["NONE"] = "none";
-    })(exports.CheckoutEventsPaymentMethodTypes || (exports.CheckoutEventsPaymentMethodTypes = {}));
-    exports.CheckoutEventsPaymentMethodCardTypes = void 0;
-    (function (CheckoutEventsPaymentMethodCardTypes) {
-        CheckoutEventsPaymentMethodCardTypes["AMERICAN_EXPRESS"] = "american_express";
-        CheckoutEventsPaymentMethodCardTypes["DINERS_CLUB"] = "diners_club";
-        CheckoutEventsPaymentMethodCardTypes["DISCOVER"] = "discover";
-        CheckoutEventsPaymentMethodCardTypes["JCB"] = "jcb";
-        CheckoutEventsPaymentMethodCardTypes["MADA"] = "mada";
-        CheckoutEventsPaymentMethodCardTypes["MAESTRO"] = "maestro";
-        CheckoutEventsPaymentMethodCardTypes["MASTER_CARD"] = "mastercard";
-        CheckoutEventsPaymentMethodCardTypes["UNION_PAY"] = "union_pay";
-        CheckoutEventsPaymentMethodCardTypes["VISA"] = "visa";
-        CheckoutEventsPaymentMethodCardTypes["UNKNOWN"] = "unknown";
-    })(exports.CheckoutEventsPaymentMethodCardTypes || (exports.CheckoutEventsPaymentMethodCardTypes = {}));
-    exports.CheckoutEventsStatus = void 0;
-    (function (CheckoutEventsStatus) {
-        CheckoutEventsStatus["DRAFT"] = "draft";
-        CheckoutEventsStatus["READY"] = "ready";
-        CheckoutEventsStatus["COMPLETED"] = "completed";
-        CheckoutEventsStatus["BILLED"] = "billed";
-        CheckoutEventsStatus["canceled"] = "canceled";
-        CheckoutEventsStatus["PAST_DUE"] = "past_due";
-    })(exports.CheckoutEventsStatus || (exports.CheckoutEventsStatus = {}));
-
-    function initializePaddle(_x) {
-        return _initializePaddle.apply(this, arguments);
-    }
-    function _initializePaddle() {
-        _initializePaddle = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(options) {
-        var requestedVersion, paddle;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-            while (1) switch (_context.prev = _context.next) {
-            case 0:
-                requestedVersion = (options === null || options === void 0 ? void 0 : options.version) || DefaultVersion;
-                _context.next = 3;
-                return loadFromCDN(requestedVersion);
-            case 3:
-                paddle = _context.sent;
-                if (!paddle) {
-                _context.next = 9;
-                break;
-                }
-                if (options) {
-                if (requestedVersion === Versions.V1) {
-                    initializePaddleBillingV1(options, paddle);
-                } else if (requestedVersion === Versions.CLASSIC) {
-                    initializePaddleClassic(options, paddle);
-                }
-                }
-                return _context.abrupt("return", paddle);
-            case 9:
-                console.error('[Paddle] Error Loading Paddle');
-                return _context.abrupt("return");
-            case 11:
-            case "end":
-                return _context.stop();
-            }
-        }, _callee);
-        }));
-        return _initializePaddle.apply(this, arguments);
-    }
-    function getPaddleInstance() {
-        var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DefaultVersion;
-        if (version === Versions.V1) {
-        return window.PaddleBillingV1;
-        } else if (version === Versions.CLASSIC) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return window.PaddleClassic;
-        } else {
-        console.error('[Paddle] Unknown Paddle Version');
-        return;
-        }
-    }
-
-    exports.getPaddleInstance = getPaddleInstance;
-    exports.initializePaddle = initializePaddle;
-
-    }));
-
-
-  // Paddle Billing configuration.
-  // IMPORTANT: Paddle Billing checkout requires PRICE IDs (prefix: "pri_"), not product IDs (prefix: "pro_").
-  // Your original product IDs are preserved below as legacyProductId values for reference.
-  const PADDLE_CLIENT_TOKEN = 'live_6be30a33d0114551f4e7908a56c';
-  const PADDLE_PRICE_IDS = {
-    streamix: {
-      individual: 'pri_01kr3ysmezgqz4ckq99ayb5zj4', // Paddle price ID for Streamix Individual, e.g. pri_...
-      team: 'pri_01kr3yvk5ph17fts6m7ajrpek5'        // Paddle price ID for Streamix Team, e.g. pri_...
-    },
-    actionstack: {
-      universal: 'pri_01kr3ym622z55gp7e915byrndc'   // Paddle price ID for Actionstack License, e.g. pri_...
-    }
-  };
-
-  // ══════════════════════════════════════════════════════════════
-  //  GITHUB AUTHENTICATION
-  // ══════════════════════════════════════════════════════════════
-
-  // License Server — handles GitHub OAuth flow server-side
-  // 1. Frontend redirects to license-server's /api/auth/github
-  // 2. License-server redirects to GitHub OAuth authorization page
-  // 3. GitHub redirects back to license-server's /api/auth/github/callback
-  // 4. License-server exchanges code for token, creates Firebase user, generates JWT
-  // 5. License-server redirects back to this page with query params:
-  //    ?token=xxx&expiresIn=7d&uid=github_12345&email=...&name=...&githubLogin=...
-  // 6. We read the query params, save to localStorage, and clean up the URL
-  // Firebase Cloud Functions URL (deployed from functions/index.js → exports.api)
-  // The function name "api" is the entry point, Express routes are mounted under /api
-  // So full path for auth: .../api/api/auth/github (LICENSE_SERVER_URL + /api/auth/github)
-  // Callback URL registered in GitHub: https://us-central1-license-server-12e73.cloudfunctions.net/api/api/auth/github/callback
-  const LICENSE_SERVER_URL = 'https://us-central1-license-server-12e73.cloudfunctions.net/api';
-
-  // Check for OAuth callback on page load
-  (function checkGitHubAuth() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get('error');
-    const token = urlParams.get('token');
-    const githubLogin = urlParams.get('githubLogin');
-    const name = urlParams.get('name');
-    const email = urlParams.get('email');
-    const uid = urlParams.get('uid');
-
-    if (error) {
-      // User denied authorization or another error occurred — clean up URL
-      const cleanUrl = window.location.origin + window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
-      // Show error to user
-      alert('GitHub sign-in failed: ' + decodeURIComponent(error));
-      return;
-    }
-
-
-    if (token && githubLogin) {
-      // We were redirected back from the license-server OAuth callback
-      // Clean up the URL (remove query params)
-      const cleanUrl = window.location.origin + window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
-
-      // Store user data in localStorage
-      const user = {
-        login: githubLogin,
-        name: name || githubLogin,
-        email: email || '',
-        uid: uid || '',
-        token: token,
-      };
-      localStorage.setItem('epiko-github', JSON.stringify(user));
-      updateGitHubUI(user);
-      return;
-    }
-
-    // Check for existing session in localStorage
-    const saved = localStorage.getItem('epiko-github');
-    if (saved) {
-      try {
-        const user = JSON.parse(saved);
-        updateGitHubUI(user);
-        return;
-      } catch (e) {
-        localStorage.removeItem('epiko-github');
-      }
-    }
-
-    // No saved session — nothing to do, user needs to click sign in
-  })();
-
-  function handleGitHubAuth() {
-    const saved = localStorage.getItem('epiko-github');
-    if (saved) {
-      // Already logged in — sign out
-      localStorage.removeItem('epiko-github');
-      updateGitHubUI(null);
-      return;
-    }
-
-    // Redirect to license-server which handles the full OAuth flow
-    // The license-server will redirect to GitHub, then back to us with query params
-    // Note: Express routes are mounted at /api/auth, so the full path is /api/auth/github
-    window.location.href = LICENSE_SERVER_URL + '/api/auth/github';
-  }
-
-  function updateGitHubUI(user) {
-    const btn = document.getElementById('githubAuthBtn');
-    const label = document.getElementById('githubAuthLabel');
-
-    // Get all purchase buttons
-    const purchaseBtns = document.querySelectorAll('.license-btn');
-    // Get all "sign in to purchase" hints
-    const signInHints = document.querySelectorAll('.license-btn-required');
-
-    if (user) {
-      btn.classList.add('logged-in');
-      // Replace the SVG icon with the user's avatar
-      const existingImg = btn.querySelector('.github-user-avatar');
-      if (existingImg) existingImg.remove();
-
-      const existingSvg = btn.querySelector('svg');
-      if (existingSvg) existingSvg.remove();
-
-      const img = document.createElement('img');
-      img.className = 'github-user-avatar';
-      // Use GitHub's avatar URL based on login (no avatar_url from server, so construct it)
-      img.src = `https://github.com/${user.login}.png?size=40`;
-      img.alt = user.login;
-      img.title = `Signed in as ${user.login}`;
-      btn.insertBefore(img, label);
-
-      label.textContent = user.login;
-      btn.title = 'Click to sign out';
-
-      // Enable all purchase buttons
-      purchaseBtns.forEach(b => b.disabled = false);
-      // Hide "sign in to purchase" hints
-      signInHints.forEach(h => h.style.display = 'none');
-    } else {
-      btn.classList.remove('logged-in');
-      const existingImg = btn.querySelector('.github-user-avatar');
-      if (existingImg) existingImg.remove();
-
-      const existingSvg = btn.querySelector('svg');
-      if (!existingSvg) {
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 16 16');
-        svg.innerHTML = '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>';
-        btn.insertBefore(svg, label);
-      }
-      label.textContent = 'Sign in with GitHub';
-      btn.title = 'Sign in with GitHub to get automatic repo access';
-
-      // Disable all purchase buttons
-      purchaseBtns.forEach(b => b.disabled = true);
-      // Show "sign in to purchase" hints
-      signInHints.forEach(h => h.style.display = '');
-    }
-  }
-
-
-  function getGitHubUser() {
-    const saved = localStorage.getItem('epiko-github');
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { return null; }
-    }
-    return null;
-  }
-
-  let paddleReady = false;
-
-  function initPaddle() {
-    if (!window.Paddle) {
-      console.warn('[Paddle] Paddle.js v2 was not loaded. Check the CDN script or network blockers.');
-      return;
-    }
-
-    try {
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-
-      // Production is the default for live_ tokens. Do not call Environment.set('production').
-      Paddle.Initialize({
-        token: PADDLE_CLIENT_TOKEN,
-        checkout: {
-          settings: {
-            displayMode: 'overlay',
-            variant: 'one-page',
-            theme: isLight ? 'light' : 'dark',
-            locale: 'en',
-            // Prevent body scroll lock conflicts
-            allowLogout: true,
-            // Sizing only — visual styling is handled by CSS overrides
-            frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px;'
-
-          }
-        },
-        eventCallback: function(event) {
-          if (event && event.name === 'checkout.completed') {
-            console.log('Purchase successful:', event);
-            unlockScroll();
-            showSuccessMessage(
-              event.data?.customData?.product || 'product',
-              event.data?.customData?.licenseType || 'universal'
-            );
-
-          }
-          if (event && event.name === 'checkout.closed') {
-            unlockScroll();
-          }
-          if (event && (event.name === 'checkout.error' || event.name === 'checkout.failed')) {
-            unlockScroll();
-          }
-        }
-      });
-      paddleReady = true;
-    } catch (e) {
-      // Paddle can only be initialized once. If another script initialized it, allow checkout to continue.
-      console.warn('[Paddle] Initialization warning:', e);
-      paddleReady = !!window.Paddle;
-    }
-  }
-
-  // Function to handle license purchases
-  function purchaseLicense(event, productName, licenseType, legacyProductId) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    const priceId = PADDLE_PRICE_IDS?.[productName]?.[licenseType];
-
-    if (!priceId || !priceId.startsWith('pri_')) {
-      alert(
-        'Paddle checkout needs a price ID that starts with "pri_".\n\n' +
-        'Current saved product ID: ' + legacyProductId + '\n\n' +
-        'Open Paddle Dashboard → Catalog → Prices, copy the matching price ID, and paste it into PADDLE_PRICE_IDS in this HTML file.'
-      );
-      console.warn('[Paddle] Missing price ID for', { productName, licenseType, legacyProductId });
-      return;
-    }
-
-    if (!paddleReady) initPaddle();
-
-    if (!window.Paddle || !Paddle.Checkout) {
-      alert('Paddle checkout is not available. Please check that Paddle.js loaded correctly.');
-      return;
-    }
-
-    // Lock body scroll to prevent double scrollbar
-    lockScroll();
-
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-
-    // Get GitHub user info if signed in
-    const githubUser = getGitHubUser();
-
-    // Determine which GitHub username to use
-    let githubUsername = githubUser ? githubUser.login : null;
-
-    // For Team licenses, ask for the company's shared GitHub account
-    if (licenseType === 'team') {
-      const teamUser = prompt(
-        'Enter your company\'s shared GitHub username to grant repo access:\n\n' +
-        '(This account will be added as a collaborator to the private repository)'
-      );
-      if (teamUser && teamUser.trim()) {
-        githubUsername = teamUser.trim();
-      } else {
-        // User cancelled or entered nothing — abort
-        unlockScroll();
-        return;
-      }
-    }
-
-    Paddle.Checkout.open({
-      items: [{ priceId: priceId, quantity: 1 }],
-      customData: {
-        licenseType: licenseType,
-        product: productName,
-        legacyProductId: legacyProductId,
-        ...(githubUsername ? { githubUsername } : {})
-      },
-      settings: {
-        displayMode: 'overlay',
-        variant: 'one-page',
-        theme: isLight ? 'light' : 'dark',
-        locale: 'en',
-        // Sizing only — visual styling is handled by CSS overrides
-        frameStyle: 'width: min(480px, calc(100vw - 32px)); max-width: 480px;'
-
-      }
-    });
-  }
-
-
-  let savedScrollY = 0;
-
-  function lockScroll() {
-    savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-    const scrollbarWidth = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
-
-    document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
-    document.documentElement.classList.add('paddle-checkout-open');
-    document.body.classList.add('paddle-checkout-open');
-  }
-
-  function unlockScroll() {
-    document.documentElement.classList.remove('paddle-checkout-open');
-    document.body.classList.remove('paddle-checkout-open');
-    document.documentElement.style.removeProperty('--scrollbar-width');
-    window.scrollTo(0, savedScrollY);
-  }
-
-  function showSuccessMessage(productName, licenseType) {
-    const licenseDesc = licenseType === 'universal' ? '' : ` ${licenseType}`;
-    alert(`Thank you for purchasing the ${productName}${licenseDesc} license! Check your email for the license key.`);
-  }
-
-  initPaddle();
-</script>
 </body>
 </html>
